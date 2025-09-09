@@ -1,20 +1,22 @@
-import './globals.css';
-import { ReactNode } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import type { Metadata } from "next";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
 
-export const metadata = {
-  title: 'Tateno Pictures',
-  description: 'Professional video production, animation, and media services',
+export const metadata: Metadata = {
+  title: "Tateno Pictures",
+  description: "Cinematic portfolio and academy",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className="bg-gray-50 text-gray-900">
+      <body className="bg-black text-white">
         <Navbar />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

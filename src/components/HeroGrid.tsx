@@ -25,7 +25,7 @@ const fallbackImages = [
 
 export default function HeroGrid() {
   return (
-    <section className="py-12 bg-black">
+    <section id="services" className="py-12 bg-black">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-6">
         {items.map((item, index) => (
           <div

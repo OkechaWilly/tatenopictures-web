@@ -25,14 +25,15 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/portfolio', label: 'Portfolio' },
-    { href: '/stills', label: 'Stills' },
-    { href: '/academy', label: 'Academy' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
-  ];
+// In Navbar.tsx - update your navItems to match your actual pages
+const navItems = [
+  { href: '#narrative', label: 'Narrative' },       // Films/Docs/Music Videos
+  { href: '#events', label: 'Events' },             // Live Events/Weddings
+  { href: '#stills', label: 'Stills' },             // Photography
+  { href: '#branded', label: 'Branded' },           // Graphics/Motion/Commercials
+  { href: '#academy', label: 'Academy' },           // Classes & Training
+  { href: '#contact', label: 'Contact' },           // Team & Business Info
+];
 
   return (
     <header className="fixed w-full z-50 top-0 left-0"> 

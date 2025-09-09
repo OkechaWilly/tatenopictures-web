@@ -1,12 +1,17 @@
+// src/app/page.tsx
 import Hero from "@/components/Hero";
 import HeroGrid from "@/components/HeroGrid";
 
 export default function Home() {
   return (
-    <main className="bg-black">
+    <main className="flex flex-col min-h-screen">
+      {/* Top hero section */}
       <Hero />
-      <HeroGrid />
-      {/* Future sections: Academy detail, About, Contact CTA */}
+
+      {/* Grid showcase section */}
+      <section className="flex-1">
+        <HeroGrid />
+      </section>
     </main>
   );
 }

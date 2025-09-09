@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 interface HeroGridItem {
   title: string;
-  src: string; // Thumbnail image
+  src: string;
   category: string;
 }
 
@@ -16,47 +15,40 @@ const items: HeroGridItem[] = [
   { title: "Editing", src: "/images/editing-still.jpg", category: "Academy" },
 ];
 
+// fallback if local image not found
+const fallbackImages = [
+  "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+  "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+  "https://images.unsplash.com/photo-1499084732479-de2c02d45fc4",
+  "https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb",
+];
+
 export default function HeroGrid() {
   return (
-    <section className="w-full bg-black text-white py-20 px-8">
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: {},
-          show: { transition: { staggerChildren: 0.15 } },
-        }}
-      >
+    <section className="py-12 bg-black">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-6">
         {items.map((item, index) => (
-          <motion.div
+          <div
             key={index}
-            className="relative group overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-            variants={{
-              hidden: { opacity: 0, y: 40 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-            }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            className="relative group rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-500"
           >
             <Image
-              src={item.src}
+              src={item.src || fallbackImages[index]}
               alt={item.title}
-              width={800}
-              height={600}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              width={500}
+              height={300}
+              className="object-cover w-full h-60 group-hover:opacity-80 transition"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = fallbackImages[index];
+              }}
             />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <h2 className="text-2xl font-semibold">{item.title}</h2>
-            </motion.div>
-          </motion.div>
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+              <h3 className="text-lg font-bold text-white">{item.title}</h3>
+              <p className="text-sm text-gray-300">{item.category}</p>
+            </div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -22,9 +22,10 @@ export default function ContactForm() {
       } else {
         setStatus('Failed to send message.');
       }
-    } catch (_err) {
-      setStatus('Error sending message.');
-    }
+    } catch {
+  // Handle error without using the error object
+  setError('Something went wrong')
+}
   };
 
   return (

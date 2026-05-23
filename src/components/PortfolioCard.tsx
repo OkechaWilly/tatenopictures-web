@@ -5,7 +5,7 @@ interface PortfolioCardProps {
   videoUrl: string;
 }
 
-export default function PortfolioCard({ title, description, imageUrl, videoUrl }: PortfolioCardProps) {
+export default function PortfolioCard({ title, description, videoUrl }: PortfolioCardProps) {
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <div className="aspect-video">

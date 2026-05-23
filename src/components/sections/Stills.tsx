@@ -61,7 +61,7 @@ export default function Stills() {
             Wedding & Event Photography
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Capturing life's most precious moments with artistry and emotion
+            Capturing life &apos; s most precious moments with artistry and emotion
           </p>
         </motion.div>
 

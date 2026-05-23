@@ -22,7 +22,7 @@ export default function ContactForm() {
       } else {
         setStatus('Failed to send message.');
       }
-    } catch (err) {
+    } catch (_err) {
       setStatus('Error sending message.');
     }
   };

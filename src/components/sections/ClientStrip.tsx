@@ -10,47 +10,42 @@ const clientBrands = [
   'Oasis Drinks',
   'Apex Athletics',
   'Vanguard Auto',
-  'Crown Jewelry'
+  'Crown Jewelry',
 ];
 
 export default function ClientStrip() {
   return (
-    <section className="w-full bg-[#060608] border-y border-[rgba(201,168,76,0.06)] py-12 overflow-hidden relative">
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#060608] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#060608] to-transparent z-10 pointer-events-none" />
-      
-      <div className="max-w-[1600px] mx-auto flex items-center">
-        <motion.div
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: 'loop',
-              duration: 35,
-              ease: 'linear',
-            },
-          }}
-          className="flex gap-20 w-max items-center font-mono text-[10px] tracking-[0.3em] uppercase text-[#4A4540]"
-        >
-          {/* First loop of brands */}
-          {clientBrands.map((brand, idx) => (
-            <span
-              key={`brand-1-${idx}`}
-              className="hover:text-[var(--gold)] transition-colors duration-300 select-none cursor-default"
-            >
-              {brand}
-            </span>
-          ))}
-          {/* Second loop (duplicated for seamless scrolling) */}
-          {clientBrands.map((brand, idx) => (
-            <span
-              key={`brand-2-${idx}`}
-              className="hover:text-[var(--gold)] transition-colors duration-300 select-none cursor-default"
-            >
-              {brand}
-            </span>
-          ))}
-        </motion.div>
+    <section className="bg-[#0D0C0F] border-y border-[rgba(201,168,76,0.08)] py-10 relative overflow-hidden">
+      {/* Edge gradient masks for smooth fade in/out */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-[#0D0C0F] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-[#0D0C0F] to-transparent z-10 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto flex items-center justify-center">
+        <div className="w-full overflow-hidden">
+          <div className="ticker-track flex items-center gap-16 md:gap-24">
+            
+            {/* First sequence */}
+            {clientBrands.map((brand, idx) => (
+              <span
+                key={`b1-${idx}`}
+                className="text-xs md:text-sm font-mono font-medium tracking-[0.3em] uppercase text-[#4A4540] hover:text-[#C9A84C] transition-colors duration-300 select-none whitespace-nowrap"
+              >
+                {brand}
+              </span>
+            ))}
+            
+            {/* Second sequence for seamless loop */}
+            {clientBrands.map((brand, idx) => (
+              <span
+                key={`b2-${idx}`}
+                className="text-xs md:text-sm font-mono font-medium tracking-[0.3em] uppercase text-[#4A4540] hover:text-[#C9A84C] transition-colors duration-300 select-none whitespace-nowrap"
+              >
+                {brand}
+              </span>
+            ))}
+
+          </div>
+        </div>
       </div>
     </section>
   );

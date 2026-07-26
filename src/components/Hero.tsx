@@ -1,168 +1,156 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const slides = [
-  {
-    image: '/images/directing-still.jpg',
-    title: 'Directing Still',
-  },
-  {
-    image: '/images/cinema-still.jpg',
-    title: 'Cinema Still',
-  },
-  {
-    image: '/images/photo-still.jpg',
-    title: 'Photo Still',
-  },
-  {
-    image: '/images/editing-still.jpg',
-    title: 'Editing Still',
-  },
+// High-quality stills available in the public/images directory
+const fallbackSlides = [
+  { src: '/images/directing-still.jpg', title: 'Directing Session' },
+  { src: '/images/cinema-still.jpg', title: 'On Set Camera Setup' },
+  { src: '/images/photo-still.jpg', title: 'Location Portrait' },
+  { src: '/images/editing-still.jpg', title: 'Post Production' },
 ];
 
 export default function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
-  const parallaxY = useTransform(scrollY, [0, 500], [0, 100]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [timecode, setTimecode] = useState('00:00:00:00');
 
-  // Slide rotation (every 4 seconds)
+  // Slide interval logic
   useEffect(() => {
     const slideTimer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4500);
+      setCurrentSlide((prev) => (prev + 1) % fallbackSlides.length);
+    }, 5000);
 
     return () => clearInterval(slideTimer);
   }, []);
 
-  // Cinematic Timecode Generator
+  // Timecode simulation (ticks like a real edit timeline)
   useEffect(() => {
-    let frame = 0;
-    let sec = 0;
-    let min = 0;
-    let hr = 0;
+    let frames = 0;
+    let seconds = 0;
+    let minutes = 0;
+    let hours = 0;
 
     const timecodeTimer = setInterval(() => {
-      frame += 1;
-      if (frame >= 24) {
-        frame = 0;
-        sec += 1;
-      }
-      if (sec >= 60) {
-        sec = 0;
-        min += 1;
-      }
-      if (min >= 60) {
-        min = 0;
-        hr += 1;
+      frames++;
+      if (frames >= 24) {
+        frames = 0;
+        seconds++;
+        if (seconds >= 60) {
+          seconds = 0;
+          minutes++;
+          if (minutes >= 60) {
+            minutes = 0;
+            hours = (hours + 1) % 24;
+          }
+        }
       }
 
-      const pad = (num: number) => num.toString().padStart(2, '0');
-      setTimecode(`${pad(hr)}:${pad(min)}:${pad(sec)}:${pad(frame)}`);
-    }, 1000 / 24); // 24 FPS ticker
+      const format = (num: number) => num.toString().padStart(2, '0');
+      setTimecode(`${format(hours)}:${format(minutes)}:${format(seconds)}:${format(frames)}`);
+    }, 1000 / 24); // 24 FPS
 
     return () => clearInterval(timecodeTimer);
   }, []);
 
   return (
-    <section id="hero" ref={heroRef} className="relative w-full h-screen overflow-hidden bg-[#060608]">
-      {/* Fallback Slideshow with Parallax */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: parallaxY }}>
+    <section id="hero" className="relative w-full h-screen overflow-hidden bg-[#060608]">
+      
+      {/* Background Slideshow (Fades between rich production stills) */}
+      <div className="absolute inset-0 z-0">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            animate={{ opacity: 0.35, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 w-full h-full"
           >
-            <Image
-              src={slides[currentSlide].image}
-              alt={slides[currentSlide].title}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover brightness-[0.45] saturate-[0.85]"
+            <img
+              src={fallbackSlides[currentSlide].src}
+              alt={fallbackSlides[currentSlide].title}
+              className="w-full h-full object-cover filter brightness-[0.7] saturate-[0.85]"
             />
           </motion.div>
         </AnimatePresence>
-      </motion.div>
 
-      {/* Cinematic Vignette Overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none overlay-full" />
+        {/* Dynamic radial gradient mask for immersive vignetting */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#060608_100%)] opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#060608]/40 to-[#060608]" />
+      </div>
 
-      {/* Large Center Branding (Fades out as we scroll) */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-6">
+      {/* Cinematic HUD Elements (Frame count, status) */}
+      <div className="absolute inset-0 z-10 pointer-events-none p-8 md:p-12 flex flex-col justify-between">
+        
+        {/* Top bar HUD */}
+        <div className="flex justify-between items-start w-full">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+            <span className="text-[10px] font-mono text-[#8C867F] uppercase tracking-[0.25em]">REC</span>
+          </div>
+          <div className="text-right">
+            <span className="text-[10px] font-mono text-[#8C867F] uppercase tracking-[0.25em]">TC / {timecode}</span>
+          </div>
+        </div>
+
+        {/* Bottom bar HUD */}
+        <div className="flex justify-between items-end w-full">
+          <div>
+            <span className="text-[9px] font-mono text-[#4A4540] uppercase tracking-[0.25em]">FPS 24.00</span>
+          </div>
+          <div>
+            <span className="text-[9px] font-mono text-[#4A4540] uppercase tracking-[0.25em]">UGANDA / 0.3476° N</span>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Hero content */}
+      <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center text-center"
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-5xl"
         >
-          <div className="mb-6 relative w-24 h-36 md:w-28 md:h-44">
-            <Image
-              src="/images/tateno-pics-logo-w.png"
-              alt="Tateno Pictures Logo"
-              fill
-              sizes="(max-width: 768px) 96px, 112px"
-              className="object-contain filter brightness-95 opacity-80"
-              priority
-            />
-          </div>
-          <h1 className="text-[10vw] font-serif font-light tracking-[0.25em] text-[#F0EBE3] leading-none mb-4">
-            TATENO
+          <span className="text-[10px] font-mono text-[#C9A84C] uppercase tracking-[0.35em] mb-6 block font-medium">
+            Tateno Pictures Studio
+          </span>
+          
+          <h1 className="text-5xl sm:text-7xl md:text-9xl font-serif font-light text-[#F0EBE3] tracking-tight leading-[0.95] mb-8">
+            Crafting <br />
+            <span className="italic font-light text-[#C9A84C]">Cinematic</span> Stories
           </h1>
-          <p className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-[var(--gold)] font-mono">
-            Cinematic Production Studio & Academy
+          
+          <p className="text-sm md:text-base text-[#8C867F] font-sans font-light tracking-widest max-w-xl mx-auto leading-relaxed uppercase">
+            From high-end film production to authentic documentary storytelling. We capture frames that linger in memory.
           </p>
         </motion.div>
-      </div>
 
-      {/* TOP RIGHT: Rotating Frame Counter / Timecode Info */}
-      <div className="absolute top-28 right-6 md:right-12 z-25 pointer-events-none font-mono flex flex-col items-end">
-        <span className="text-[9px] text-[var(--gold)] tracking-[0.2em] uppercase mb-0.5">REC 🔴</span>
-        <span className="text-[12px] md:text-sm text-[#F0EBE3] tracking-widest font-medium opacity-85">
-          {timecode}
-        </span>
-        <div className="flex gap-2 text-[8px] text-[var(--text-secondary)] tracking-wider uppercase mt-1">
-          <span>24 FPS</span>
-          <span>•</span>
-          <span>SEQ 00{currentSlide + 1}</span>
-        </div>
-      </div>
-
-      {/* BOTTOM LEFT: Custom thin line info */}
-      <div className="absolute bottom-10 left-6 md:left-12 z-25 pointer-events-none font-mono flex flex-col gap-1">
-        <div className="w-16 h-[1px] bg-[var(--gold)] opacity-50 mb-1" />
-        <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[#F0EBE3]/70">
-          TATENO PICTURES — KAMPALA
-        </span>
-        <span className="text-[7px] uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-          LAT: 0.3476° N · LON: 32.5825° E
-        </span>
-      </div>
-
-      {/* BOTTOM RIGHT: Scroll Indicator (Single vertical line with slide-down animation) */}
-      <div className="absolute bottom-10 right-6 md:right-12 z-25 flex flex-col items-center">
-        <div className="relative w-[1px] h-16 bg-white/10 overflow-hidden">
+        {/* Scroll CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-16 flex flex-col items-center gap-4 cursor-pointer"
+          onClick={() => {
+            document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          <span className="text-[9px] font-mono text-[#8C867F] uppercase tracking-[0.3em]">
+            Explore Work
+          </span>
           <motion.div
-            animate={{
-              y: ['-100%', '100%'],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-[var(--gold)] to-transparent"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            className="w-[1px] h-12 bg-gradient-to-b from-[#C9A84C] to-transparent"
           />
-        </div>
+        </motion.div>
+
       </div>
+
     </section>
   );
 }

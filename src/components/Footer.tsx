@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -6,8 +7,20 @@ export default function Footer() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-10 border-b border-white/15 pb-12 md:grid-cols-[1.3fr_.7fr_1fr] md:gap-16">
           <div>
-            <Link href="/" className="text-3xl font-semibold tracking-[-.08em]">TATENO<span className="text-[#D98A6C]">.</span></Link>
-            <p className="mt-3 text-xs uppercase tracking-[.14em] text-white/55">Pictures · Kampala, Uganda</p>
+            <Link href="/" aria-label="Tateno Pictures home" className="inline-flex items-center gap-3">
+              <Image
+                src="/images/tateno-pics-logo-w.png"
+                alt=""
+                width={42}
+                height={58}
+                className="h-12 w-9 object-contain"
+              />
+              <span className="flex flex-col">
+                <span className="text-2xl font-semibold tracking-[-.075em]">TATENO<span className="text-[#D98A6C]">.</span></span>
+                <span className="mt-1 text-[9px] uppercase tracking-[.22em] text-white/55">Pictures</span>
+              </span>
+            </Link>
+            <p className="mt-3 text-xs uppercase tracking-[.14em] text-white/55">Kampala, Uganda</p>
           </div>
           <div>
             <span className="eyebrow text-[#D98A6C]">Explore</span>

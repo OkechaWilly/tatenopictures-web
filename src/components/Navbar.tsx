@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -18,9 +19,19 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[rgba(23,25,22,.08)] bg-[rgba(244,242,236,.92)] backdrop-blur-xl">
       <nav aria-label="Main navigation" className="mx-auto flex h-[76px] max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:px-14">
-        <Link href="/" className="group flex flex-col leading-none" aria-label="Tateno Pictures home">
-          <span className="text-[17px] font-semibold tracking-[-.07em] text-[var(--ink)]">TATENO<span className="text-[var(--accent)]">.</span></span>
-          <span className="mt-1 text-[8px] font-medium uppercase tracking-[.22em] text-[var(--muted)]">Pictures</span>
+        <Link href="/" className="group flex items-center gap-3" aria-label="Tateno Pictures home">
+          <Image
+            src="/images/tateno-pics-logo12.png"
+            alt=""
+            width={46}
+            height={46}
+            priority
+            className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+          <span className="flex flex-col leading-none">
+            <span className="text-[16px] font-semibold tracking-[-.065em] text-[var(--ink)]">TATENO<span className="text-[var(--accent)]">.</span></span>
+            <span className="mt-[5px] text-[8px] font-medium uppercase tracking-[.22em] text-[var(--muted)]">Pictures</span>
+          </span>
         </Link>
 
         <div className="hidden items-center gap-9 md:flex">

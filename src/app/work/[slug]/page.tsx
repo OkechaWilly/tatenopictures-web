@@ -120,19 +120,14 @@ export default async function ProjectPage({ params }: PageProps) {
               {project.description}
             </p>
             
-            <div className="prose prose-invert max-w-none text-sm font-sans font-light text-[#8C867F] space-y-6 leading-relaxed">
-              <p>
-                Every frame in <strong className="text-[#F0EBE3]">{project.title}</strong> was meticulously constructed to serve the emotional center of the visual story. Filmed entirely on location, we utilized a combination of controlled studio setups and natural light sculpting to match the specific artistic parameters of the director&apos;s brief.
-              </p>
-              <p>
-                From digital sensor calibration to final color grading in DaVinci Resolve, the post-production workflow remained integrated within the studio. The project represents a commitment to high-end cinematic standards, bringing rich texture and sophisticated compositions to the forefront of modern production in East Africa.
-              </p>
-            </div>
+            <p className="max-w-2xl text-sm font-sans font-light text-[#8C867F] leading-8">
+              This project is part of the Tateno Pictures portfolio. For further information about the production, our role and the work involved, please get in touch with the studio.
+            </p>
           </div>
 
           {/* Technical Specs Panel (Right Column) */}
           <div className="lg:col-span-5 bg-[#0D0C0F] border border-[rgba(201,168,76,0.1)] p-8 sm:p-10 rounded">
-            <h3 className="label-gold mb-8 pb-4 border-b border-[rgba(255,255,255,0.03)]">Production Specifications</h3>
+            <h3 className="label-gold mb-8 pb-4 border-b border-[rgba(255,255,255,0.03)]">Project Details</h3>
             
             <ul className="space-y-6 text-xs font-mono text-[#8C867F]">
               <li className="flex justify-between items-baseline py-1 border-b border-[rgba(255,255,255,0.02)]">
@@ -147,24 +142,6 @@ export default async function ProjectPage({ params }: PageProps) {
                 <li className="flex justify-between items-baseline py-1 border-b border-[rgba(255,255,255,0.02)]">
                   <span className="text-[#4A4540] uppercase tracking-wider">Running Time</span>
                   <span className="text-[#F0EBE3]">{project.duration}</span>
-                </li>
-              )}
-              {project.specs?.dp && (
-                <li className="flex justify-between items-baseline py-1 border-b border-[rgba(255,255,255,0.02)]">
-                  <span className="text-[#4A4540] uppercase tracking-wider">Cinematographer / DP</span>
-                  <span className="text-[#F0EBE3]">{project.specs.dp}</span>
-                </li>
-              )}
-              {project.specs?.format && (
-                <li className="flex justify-between items-baseline py-1 border-b border-[rgba(255,255,255,0.02)]">
-                  <span className="text-[#4A4540] uppercase tracking-wider">Capture System</span>
-                  <span className="text-[#F0EBE3]">{project.specs.format}</span>
-                </li>
-              )}
-              {project.specs?.lenses && (
-                <li className="flex justify-between items-baseline py-1">
-                  <span className="text-[#4A4540] uppercase tracking-wider">Optics Selection</span>
-                  <span className="text-[#F0EBE3]">{project.specs.lenses}</span>
                 </li>
               )}
             </ul>

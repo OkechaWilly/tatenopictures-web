@@ -42,14 +42,13 @@ export async function POST(req: Request) {
 
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
-      console.warn("RESEND_API_KEY not configured. Logging submission instead.");
-      console.log("New Contact Submission (NOT SENT):", { name, email, message, service });
+      console.error("Contact submission blocked: RESEND_API_KEY is not configured.");
       return NextResponse.json(
-        { 
-          success: true, 
-          message: "Message received! We'll get back to you soon. (Email service not configured)" 
+        {
+          success: false,
+          message: "Our contact service is temporarily unavailable. Please contact the studio directly."
         },
-        { status: 200 }
+        { status: 503 }
       );
     }
 

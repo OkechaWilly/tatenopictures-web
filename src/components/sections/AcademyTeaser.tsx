@@ -46,7 +46,7 @@ export default function AcademyTeaser() {
               viewport={{ once: true }}
               className="label-gold mb-3 inline-block"
             >
-              Tateno Academy
+              Community · Skills · Practice
             </motion.span>
             
             <motion.h2
@@ -56,7 +56,7 @@ export default function AcademyTeaser() {
               transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl sm:text-5xl font-serif font-light text-[#F0EBE3] tracking-tight leading-tight mb-6"
             >
-              Nurturing the Next Generation of <span className="italic text-[#C9A84C]">Filmmakers</span>
+              Passing creative skills forward.
             </motion.h2>
 
             <motion.p
@@ -66,7 +66,7 @@ export default function AcademyTeaser() {
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="text-[#8C867F] font-sans font-light text-base leading-relaxed mb-8"
             >
-              Learn industry-standard visual tools and techniques directly from active industry directors, cinematographers, and colorists. From camera operations to DaVinci Resolve color grading, our masterclasses are designed to build professional-grade skillsets.
+              Since 2023, we have been sharing practical creative skills with young people in our community — from graphic design and photography to camera work and video editing.
             </motion.p>
 
             {/* List features */}
@@ -79,15 +79,15 @@ export default function AcademyTeaser() {
             >
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
-                Cinematography & Lighting Masterclass
+                Practical creative skills
               </li>
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
-                Professional DaVinci Resolve Color Grading
+                Learning through hands-on projects
               </li>
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
-                Directing & Visual Narratives Workshops
+                Exposure to real production environments
               </li>
             </motion.ul>
 
@@ -98,7 +98,7 @@ export default function AcademyTeaser() {
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link href="/academy" className="btn-gold">
-                Explore Academy & Programs
+                Discover the Academy
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>

@@ -9,11 +9,11 @@ export default function Footer() {
           <div>
             <Link href="/" aria-label="Tateno Pictures home" className="inline-flex items-center gap-3">
               <Image
-                src="/images/tateno-pics-logo-w.png"
+                src="/images/tateno-pics-logo12.png"
                 alt=""
                 width={42}
                 height={58}
-                className="h-12 w-9 object-contain"
+                className="h-12 w-9 object-contain brightness-0 invert"
               />
               <span className="flex flex-col">
                 <span className="text-2xl font-semibold tracking-[-.075em]">TATENO<span className="text-[#D98A6C]">.</span></span>

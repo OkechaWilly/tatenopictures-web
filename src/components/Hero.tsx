@@ -1,78 +1,51 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
-
-const slides = [
-  { src: '/images/directing-still.jpg', alt: 'A directing moment on set' },
-  { src: '/images/cinema-still.jpg', alt: 'Camera setup during production' },
-  { src: '/images/photo-still.jpg', alt: 'A photographic frame' },
-  { src: '/images/editing-still.jpg', alt: 'Post-production workspace' },
-];
+import { motion } from 'framer-motion';
 
 export default function Hero() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setCurrentSlide((current) => (current + 1) % slides.length);
-    }, 6000);
-    return () => window.clearInterval(timer);
-  }, []);
-
   return (
-    <section id="hero" className="relative isolate flex min-h-[88svh] w-full items-end overflow-hidden bg-[#060608] md:min-h-screen">
-      <div className="absolute inset-0">
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 1.025 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0"
-          >
-            <img
-              src={slides[currentSlide].src}
-              alt={slides[currentSlide].alt}
-              className="h-full w-full object-cover"
-              fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
-            />
-          </motion.div>
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#060608]/85 via-[#060608]/35 to-[#060608]/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-transparent to-[#060608]/20" />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pb-20 pt-36 sm:px-10 md:pb-28 lg:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-4xl"
-        >
-          <span className="label-gold mb-6 block">Independent creative production · Kampala, Uganda</span>
-          <h1 className="max-w-4xl font-serif text-5xl font-light leading-[0.98] tracking-tight text-[#F0EBE3] sm:text-7xl md:text-8xl lg:text-[7.5rem]">
-            Film, photography
+    <section id="hero" className="relative overflow-hidden bg-[var(--paper)] px-5 pb-12 pt-32 sm:px-8 md:pt-40 lg:px-14">
+      <div className="mx-auto grid max-w-[1500px] items-center gap-12 lg:grid-cols-[.92fr_1.08fr] lg:gap-16">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .75, ease: [0.2,0.7,0.2,1] }} className="relative z-10">
+          <span className="eyebrow mb-7">Independent production studio · Kampala, Uganda</span>
+          <h1 className="max-w-3xl text-[clamp(3.6rem,7.5vw,7.4rem)] font-medium leading-[.91] tracking-[-.075em] text-[var(--ink)]">
+            We make
             <br />
-            <span className="italic text-[#C9A84C]">& visual storytelling.</span>
+            <span className="font-serif font-normal italic tracking-[-.045em] text-[var(--accent)]">moving images</span>
+            <br />
+            that move people.
           </h1>
-          <p className="mt-7 max-w-xl text-sm font-light leading-7 text-[#D0CBC3] sm:text-base">
-            We create films and images for people, brands and stories worth bringing to life.
+          <p className="mt-8 max-w-lg text-base leading-8 text-[var(--muted)] sm:text-lg">
+            Film, photography and post-production for stories, people and organisations with something to say.
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <Link href="/work" className="btn-gold">Explore our work</Link>
-            <Link href="/#contact" className="inline-flex items-center gap-3 border border-white/25 px-6 py-3 text-xs uppercase tracking-[0.16em] text-white transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C]">
-              Start a conversation <span aria-hidden="true">↗</span>
-            </Link>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/work" className="btn-primary">Explore selected work <span aria-hidden="true">↗</span></Link>
+            <Link href="/#contact" className="btn-outline">Start a project</Link>
+          </div>
+          <div className="mt-14 flex items-center gap-4 border-t border-[var(--line)] pt-4 text-[10px] font-medium uppercase tracking-[.14em] text-[var(--muted)]">
+            <span>Film</span><span className="h-1 w-1 rounded-full bg-[var(--accent)]" />
+            <span>Photography</span><span className="h-1 w-1 rounded-full bg-[var(--accent)]" />
+            <span>Post-production</span>
           </div>
         </motion.div>
 
-        <div className="mt-16 flex items-center justify-between border-t border-white/20 pt-4 text-[9px] font-mono uppercase tracking-[0.2em] text-white/65 md:mt-24">
-          <span>Stories in motion. Images that stay.</span>
-          <span>{String(currentSlide + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</span>
-        </div>
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .9, delay: .12 }} className="relative">
+          <div className="relative aspect-[.92] overflow-hidden bg-[#D8D5CC] sm:aspect-[1.12] lg:aspect-[.92]">
+            <Image src="/images/directing-still.jpg" alt="Tateno Pictures at work on a production set" fill priority sizes="(max-width: 1024px) 100vw, 52vw" className="object-cover" />
+          </div>
+          <div className="mt-3 flex items-start justify-between gap-4 text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">
+            <span>Stories take shape on set.</span>
+            <span className="text-right">01 / Tateno Pictures</span>
+          </div>
+          <div className="absolute -bottom-7 -left-5 hidden h-24 w-24 items-center justify-center rounded-full border border-[var(--accent)] bg-[var(--paper)] text-center font-mono text-[9px] uppercase leading-4 tracking-[.12em] text-[var(--accent)] sm:flex">
+            Made<br/>with intent
+          </div>
+        </motion.div>
+      </div>
+      <div className="mx-auto mt-20 max-w-[1500px] border-t border-[var(--line)] pt-4 text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">
+        <div className="flex flex-wrap justify-between gap-3"><span>Independent by nature. Collaborative by design.</span><span>Scroll to explore ↓</span></div>
       </div>
     </section>
   );

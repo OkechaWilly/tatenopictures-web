@@ -11,7 +11,7 @@ export default function AcademyTeaser() {
           <Image src="/images/directing-still.jpg" alt="A practical moment on a production set" fill sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover" />
         </div>
         <div className="max-w-2xl">
-          <span className="eyebrow mb-5">04 / Community & learning</span>
+          <span className="eyebrow mb-5">05 / Community & learning</span>
           <h2 className="text-[clamp(2.7rem,5vw,5rem)] font-medium leading-[.98] tracking-[-.07em] text-[var(--ink)]">
             Sharing the craft. <span className="font-serif font-normal italic text-[var(--accent)]">Making room for others.</span>
           </h2>

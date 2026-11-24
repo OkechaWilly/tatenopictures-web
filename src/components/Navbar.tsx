@@ -91,47 +91,8 @@ export default function Navbar() {
             
             {/* Desktop Left Nav Links */}
             <div className="hidden md:flex items-center gap-8 lg:gap-12 flex-1 justify-end pr-12">
-              {/* WORK Menu with Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsWorkDropdownOpen(true)}
-                onMouseLeave={() => setIsWorkDropdownOpen(false)}
-              >
-                <button
-                  className={`nav-link flex items-center gap-1.5 cursor-pointer uppercase ${
-                    activeSection === 'work' ? 'text-[#C9A84C]' : 'text-[#8C867F]'
-                  }`}
-                >
-                  Work
-                  <svg className={`w-2.5 h-2.5 transition-transform duration-300 ${isWorkDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                <AnimatePresence>
-                  {isWorkDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.25, ease: 'easeOut' }}
-                      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56"
-                    >
-                      <div className="bg-[#0D0C0F] border border-[rgba(201,168,76,0.1)] rounded px-2 py-3 shadow-2xl">
-                        {workItems.map((item) => (
-                          <button
-                            key={item.filter}
-                            onClick={() => handleWorkFilterClick(item.filter)}
-                            className="w-full text-left px-4 py-2.5 text-xs text-[#8C867F] hover:text-[#C9A84C] hover:bg-[rgba(201,168,76,0.04)] font-mono uppercase tracking-wider transition-all rounded duration-300"
-                          >
-                            {item.label}
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              <Link href="/work" className={`nav-link uppercase ${pathname.startsWith('/work') ? 'text-[#C9A84C]' : 'text-[#8C867F]'}`}>Film & Video</Link>
+              <Link href="/photography" className={`nav-link uppercase ${pathname === '/photography' ? 'text-[#C9A84C]' : 'text-[#8C867F]'}`}>Photography</Link>
 
               {/* ACADEMY Page Link */}
               <Link
@@ -228,20 +189,8 @@ export default function Navbar() {
 
               {/* Central Nav Links */}
               <nav className="flex flex-col items-center gap-6 my-auto">
-                <div className="text-center">
-                  <p className="text-[10px] font-mono text-[#C9A84C] tracking-[0.2em] uppercase mb-3">Our Work</p>
-                  <div className="flex flex-col gap-2">
-                    {workItems.map((item) => (
-                      <button
-                        key={item.filter}
-                        onClick={() => handleWorkFilterClick(item.filter)}
-                        className="text-lg font-sans font-light text-[#F0EBE3] hover:text-[#C9A84C] transition-colors duration-300"
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <Link href="/work" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-sans font-light text-[#F0EBE3] hover:text-[#C9A84C] transition-colors duration-300">Film & Video</Link>
+                <Link href="/photography" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-sans font-light text-[#F0EBE3] hover:text-[#C9A84C] transition-colors duration-300">Photography</Link>
 
                 <div className="h-[1px] w-12 bg-[rgba(201,168,76,0.15)] my-2"></div>
 

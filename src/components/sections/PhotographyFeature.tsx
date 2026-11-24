@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PhotoItem {
@@ -22,8 +23,9 @@ const photographyWorks: PhotoItem[] = [
   { id: '8', src: '/images/boat.JPG', title: 'Lake Crossing', category: 'Travel' },
 ];
 
-export default function PhotographyFeature() {
+export default function PhotographyFeature({ limit }: { limit?: number }) {
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
+  const visiblePhotos = typeof limit === 'number' ? photographyWorks.slice(0, limit) : photographyWorks;
 
   return (
     <section id="stills" className="bg-[#060608] section-pad page-pad border-t border-[rgba(201,168,76,0.05)]">
@@ -36,13 +38,13 @@ export default function PhotographyFeature() {
             <h2 className="display-lg text-[#F0EBE3]">Photography</h2>
           </div>
           <p className="text-[#8C867F] font-sans font-light text-sm max-w-sm leading-relaxed">
-            Capturing frozen moments of beauty, narrative frames, and real human emotion using medium format digital sensors and classic optics.
+A collection of people, places, celebrations and moments seen through our lens.
           </p>
         </div>
 
         {/* CSS Columns True Masonry Grid */}
         <div className="masonry-grid">
-          {photographyWorks.map((photo, idx) => (
+          {visiblePhotos.map((photo, idx) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, y: 30 }}
@@ -75,6 +77,14 @@ export default function PhotographyFeature() {
             </motion.div>
           ))}
         </div>
+
+        {typeof limit === 'number' && photographyWorks.length > limit && (
+          <div className="mt-12 flex justify-center">
+            <Link href="/photography" className="inline-flex items-center gap-3 border border-white/20 px-6 py-3 text-xs uppercase tracking-[0.16em] text-[#F0EBE3] transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C]">
+              View all photography <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        )}
 
         {/* Cinematic Lightbox Modal (Click to view full screen) */}
         <AnimatePresence>

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -14,6 +15,30 @@ const galleries: Record<string, string[]> = {
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projectsData.find((item) => item.slug === slug);
+  if (!project) return { title: 'Project not found' };
+
+  return {
+    title: project.title,
+    description: project.description,
+    alternates: { canonical: `/work/${project.slug}` },
+    openGraph: {
+      type: 'article',
+      title: project.title,
+      description: project.description,
+      images: [{ url: project.image, alt: project.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: project.title,
+      description: project.description,
+      images: [project.image],
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: PageProps) {

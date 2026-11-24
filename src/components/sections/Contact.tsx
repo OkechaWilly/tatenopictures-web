@@ -8,130 +8,104 @@ export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section id="contact" className="bg-[#060608] section-pad page-pad border-t border-[rgba(201,168,76,0.05)] relative overflow-hidden flex items-center min-h-[75vh]">
-      {/* Background radial glows */}
-      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[rgba(201,168,76,0.02)] rounded-full filter blur-[150px] pointer-events-none" />
-      
-      <div className="max-w-4xl mx-auto w-full relative z-10 text-center">
-        
+    <section id="contact" className="relative flex min-h-[65vh] items-center overflow-hidden border-t border-white/5 bg-[#060608] px-6 py-24 md:py-32">
+      <div className="pointer-events-none absolute left-1/4 top-1/3 h-[500px] w-[500px] rounded-full bg-[rgba(201,168,76,0.025)] blur-[150px]" />
+
+      <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="label-gold mb-4 inline-block"
+          className="label-gold mb-5 inline-block"
         >
-          Collaboration
+          Start a conversation
         </motion.span>
-        
+
         <motion.h2
-          initial={{ opacity: 0, y: 35 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-6xl font-serif font-light text-[#F0EBE3] tracking-tight leading-tight mb-8"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto mb-7 max-w-4xl font-serif text-4xl font-light leading-[1.08] tracking-tight text-[#F0EBE3] sm:text-6xl md:text-7xl"
         >
-          Tell us about your <span className="italic text-[#C9A84C]">Vision</span>
+          Have a story to tell?
+          <span className="block italic text-[#C9A84C]">Let’s make it visible.</span>
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[#8C867F] font-sans font-light text-base leading-relaxed max-w-xl mx-auto mb-12"
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mx-auto mb-10 max-w-2xl text-sm font-light leading-8 text-[#8C867F] md:text-base"
         >
-          Whether you want to discuss a feature film script, request a quote for commercial video production, or enroll in our next masterclass, we are ready to bring your ideas to life.
+          Tell us what you are planning. Whether it is a film, a photography assignment or a creative production, we would be glad to hear about it.
         </motion.p>
 
-        {/* CTA Button to open Contact Modal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-col items-center justify-center gap-5 sm:flex-row"
         >
-          <button onClick={() => setIsModalOpen(true)} className="btn-gold px-10">
-            Start a Project
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="btn-gold px-10"
+          >
+            Discuss a project
+            <span aria-hidden="true">↗</span>
           </button>
-          
-          <a href="mailto:info@tatenopictures.com" className="btn-outline px-10">
-            Direct Email
-          </a>
+          <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#6F6962]">
+            Kampala, Uganda · Available for selected projects
+          </span>
         </motion.div>
-
-        {/* Quick Contacts Footer Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, delay: 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-[rgba(201,168,76,0.08)] pt-12 text-center"
-        >
-          <div>
-            <span className="text-[10px] font-mono text-[#C9A84C] uppercase tracking-widest block mb-1">Direct Line</span>
-            <a href="tel:+25670000000" className="text-sm font-sans font-light text-[#F0EBE3] hover:text-[#C9A84C] transition-colors">
-              +256 (700) 000-000
-            </a>
-          </div>
-          <div>
-            <span className="text-[10px] font-mono text-[#C9A84C] uppercase tracking-widest block mb-1">Studio Desk</span>
-            <a href="mailto:info@tatenopictures.com" className="text-sm font-sans font-light text-[#F0EBE3] hover:text-[#C9A84C] transition-colors">
-              info@tatenopictures.com
-            </a>
-          </div>
-          <div>
-            <span className="text-[10px] font-mono text-[#C9A84C] uppercase tracking-widest block mb-1">HQ Location</span>
-            <span className="text-sm font-sans font-light text-[#F0EBE3]">
-              Kampala, Uganda
-            </span>
-          </div>
-        </motion.div>
-
       </div>
 
-      {/* Full screen contact form modal */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#060608]/95 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) setIsModalOpen(false);
+            }}
+            className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[#060608]/95 p-4 backdrop-blur-xl"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-brief-title"
+              initial={{ scale: 0.97, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-[#0D0C0F] border border-[rgba(201,168,76,0.15)] p-6 sm:p-10 rounded max-w-xl w-full relative my-8"
+              exit={{ scale: 0.97, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative my-8 w-full max-w-xl rounded border border-[rgba(201,168,76,0.15)] bg-[#0D0C0F] p-6 sm:p-10"
             >
-              {/* Close Button */}
               <button
+                type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-[#8C867F] hover:text-[#F0EBE3] p-2"
-                aria-label="Close modal"
+                className="absolute right-4 top-4 p-2 text-[#8C867F] transition-colors hover:text-[#F0EBE3]"
+                aria-label="Close project enquiry form"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
               <div className="mb-6">
-                <span className="label-gold mb-1 inline-block">Project Brief</span>
-                <h3 className="text-2xl font-serif font-light text-[#F0EBE3]">Start your visual campaign</h3>
+                <span className="label-gold mb-1 inline-block">Project enquiry</span>
+                <h3 id="project-brief-title" className="font-serif text-2xl font-light text-[#F0EBE3]">
+                  Tell us what you have in mind.
+                </h3>
               </div>
-
-              {/* Embedded Contact Form Component */}
               <ContactForm />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </section>
   );
 }

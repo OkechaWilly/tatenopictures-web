@@ -11,7 +11,7 @@ export default function Contact() {
     <section id="contact" className="bg-[var(--paper-bright)] px-5 py-20 sm:px-8 md:py-28 lg:px-14">
       <div className="mx-auto flex max-w-[1500px] flex-col gap-10 border-t border-[var(--line)] pt-10 md:flex-row md:items-end md:justify-between md:pt-14">
         <div className="max-w-3xl">
-          <span className="eyebrow mb-5">05 / Start a conversation</span>
+          <span className="eyebrow mb-5">06 / Start a conversation</span>
           <h2 className="text-[clamp(3rem,7vw,7rem)] font-medium leading-[.9] tracking-[-.075em] text-[var(--ink)]">
             Have a project<br/><span className="font-serif font-normal italic text-[var(--accent)]">in mind?</span>
           </h2>

@@ -7,7 +7,7 @@ import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
-    <main className="scroll-smooth bg-[#060608]">
+    <main className="scroll-smooth bg-[var(--paper)]">
       <Hero />
       <Work limit={4} />
       <PhotographyFeature limit={6} />

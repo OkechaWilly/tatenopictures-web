@@ -3,16 +3,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isWorkDropdownOpen, setIsWorkDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const pathname = usePathname();
-  const router = useRouter();
 
   // Scroll detection for transparent-to-solid navbar transition
   useEffect(() => {
@@ -53,29 +51,6 @@ export default function Navbar() {
       });
     };
   }, [pathname]);
-
-  const handleWorkFilterClick = (filter: string) => {
-    setIsWorkDropdownOpen(false);
-    setIsMobileMenuOpen(false);
-    
-    if (pathname !== '/') {
-      router.push(`/#work?filter=${filter}`);
-    } else {
-      const workSection = document.getElementById('work');
-      if (workSection) {
-        workSection.scrollIntoView({ behavior: 'smooth' });
-      }
-      // Dispatch a custom event to notify the Work gallery filter to change
-      window.dispatchEvent(new CustomEvent('set-work-filter', { detail: filter }));
-    }
-  };
-
-  const workItems = [
-    { label: 'Narrative & Cinema', filter: 'narrative' },
-    { label: 'Events & Weddings', filter: 'events' },
-    { label: 'Stills & Photography', filter: 'stills' },
-    { label: 'Branded & Commercials', filter: 'branded' },
-  ];
 
   return (
     <>

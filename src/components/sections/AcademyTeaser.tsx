@@ -23,7 +23,7 @@ export default function AcademyTeaser() {
           >
             <Image
               src="/images/directing-still.jpg"
-              alt="Film Academy Training"
+              alt="Creative production in progress"
               fill
               className="object-cover filter brightness-[0.7] saturate-[0.85]"
               sizes="(max-width: 1024px) 100vw, 50vw"

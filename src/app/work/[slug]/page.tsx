@@ -7,7 +7,7 @@ interface PageProps { params: Promise<{ slug: string }> }
 
 const galleries: Record<string, string[]> = {
   'changing-the-truth': ['/images/docs/ctt-doc-10.png','/images/docs/ctt-doc-11.png','/images/docs/ctt-doc-3.png','/images/docs/ctt-doc-4.png'],
-  'music-video-work': ['/images/music/Binyumira-BashySmith2.png','/images/music/Koka-Sheloveme1.png','/images/music/Koka-Sheloveme44.png','/images/music/Yona-SDA1.png'],
+  'music-video-work': ['/images/music/Binyumira-BashySmith2.png','/images/music/Koka-Sheloveme1.png','/images/music/Koka-Sheloveme2.png','/images/music/Yona-SDA1.png'],
   'wedding-films': ['/images/weddings/still-01.jpeg','/images/weddings/still-02.jpeg','/images/weddings/still-03.jpeg','/images/weddings/still-04.jpeg','/images/weddings/still-05.jpeg'],
   'production-stories': ['/images/directing-still.jpg','/images/cinema-still.jpg','/images/editing-still.jpg'],
 };

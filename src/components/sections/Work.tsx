@@ -20,15 +20,17 @@ export default function Work({ limit }: { limit?: number }) {
   return (
     <section id="work" className="bg-[var(--paper-bright)] px-5 py-20 sm:px-8 md:py-28 lg:px-14">
       <div className="mx-auto max-w-[1500px]">
-        <div className="mb-10 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
-          <div>
-            <span className="eyebrow mb-4">01 / Selected work</span>
-            <h2 className="display-lg text-[var(--ink)]">Made to be seen.</h2>
+        {typeof limit === 'number' && (
+          <div className="mb-10 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
+            <div>
+              <span className="eyebrow mb-4">01 / Selected work</span>
+              <h2 className="display-lg text-[var(--ink)]">Made to be seen.</h2>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-[var(--muted)] md:text-base">
+              A selection of film, music video, documentary and event work from the studio.
+            </p>
           </div>
-          <p className="max-w-md text-sm leading-7 text-[var(--muted)] md:text-base">
-            A selection of film, music video, documentary and event work from the studio.
-          </p>
-        </div>
+        )}
 
         {!limit && (
           <div className="mb-9 flex gap-7 overflow-x-auto border-b border-[var(--line)]">

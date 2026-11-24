@@ -43,10 +43,10 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-5">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <label className="flex flex-col gap-2 text-xs font-semibold text-[var(--ink)]">Your name
-          <input type="text" name="name" required placeholder="Your name" className={field}/>
+          <input type="text" name="name" autoComplete="name" required maxLength={100} placeholder="Your name" className={field}/>
         </label>
         <label className="flex flex-col gap-2 text-xs font-semibold text-[var(--ink)]">Email address
-          <input type="email" name="email" required placeholder="you@example.com" className={field}/>
+          <input type="email" name="email" autoComplete="email" required maxLength={254} placeholder="you@example.com" className={field}/>
         </label>
       </div>
       <label className="flex flex-col gap-2 text-xs font-semibold text-[var(--ink)]">What are you looking for?
@@ -62,11 +62,25 @@ export default function ContactForm() {
           <option value="general">Something else</option>
         </select>
       </label>
-      <label className="flex flex-col gap-2 text-xs font-semibold text-[var(--ink)]">A little about your project
-        <textarea name="message" required rows={5} placeholder="What are you planning? Include any useful details, dates or links." className={field + " resize-y"}/>
+      <label className="flex flex-col gap-2 text-xs font-semibold text-[var(--ink)]">When are you hoping to get started? <span className="font-normal text-[var(--muted)]">(Optional)</span>
+        <select name="timeline" defaultValue="" className={field}>
+          <option value="">Not sure yet</option>
+          <option value="As soon as possible">As soon as possible</option>
+          <option value="Within one month">Within one month</option>
+          <option value="Within one to three months">Within 1–3 months</option>
+          <option value="More than three months">More than 3 months</option>
+          <option value="Flexible">Flexible / exploratory</option>
+        </select>
       </label>
-      <button type="submit" disabled={isLoading} className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60">{isLoading ? "Sending…" : "Send enquiry"} <span aria-hidden="true">↗</span></button>
-      {status && <p role="status" className={`text-sm ${isError ? "text-red-700" : "text-green-800"}`}>{status}</p>}
+      <label className="flex flex-col gap-2 text-xs font-semibold text-[var(--ink)]">A little about your project
+        <textarea name="message" required minLength={10} maxLength={5000} rows={5} placeholder="What are you planning? Tell us about the idea, intended audience, location, dates or any useful references." className={field + " resize-y"}/>
+      </label>
+      <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+        <label>Leave this field empty<input type="text" name="website" tabIndex={-1} autoComplete="off"/></label>
+      </div>
+      <p className="text-xs leading-6 text-[var(--muted)]">Your details are used only to respond to this project enquiry. Sharing a full brief is not necessary at this stage.</p>
+      <button type="submit" disabled={isLoading} className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60">{isLoading ? "Sending…" : "Send project enquiry"} <span aria-hidden="true">↗</span></button>
+      {status && <p role="status" aria-live="polite" className={`text-sm ${isError ? "text-red-700" : "text-green-800"}`}>{status}</p>}
     </form>
   );
 }

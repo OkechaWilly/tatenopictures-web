@@ -27,19 +27,19 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tateno Pictures | Cinematic Storytelling & Film Academy",
+    default: "Tateno Pictures | Film, Photography & Creative Production",
     template: "%s | Tateno Pictures",
   },
-  description: "Kampala-based production studio specializing in high-end cinematography, documentaries, music videos, commercials, and professional film training.",
-  keywords: ["Tateno Pictures", "Willy Okecha", "Cinematography Uganda", "Film Production Kampala", "Documentary Filmmaking", "Music Videos East Africa", "Film Academy Uganda", "DaVinci Resolve Color Grading"],
+  description: "Tateno Pictures is a Kampala-based creative production studio working across film, photography, music videos, branded content and community-based creative skills development.",
+  keywords: ["Tateno Pictures", "Willy Okecha", "Film Production Uganda", "Photography Kampala", "Documentary Filmmaking", "Music Videos Uganda", "Creative Skills Development", "Tateno Film Academy"],
   authors: [{ name: "Willy Okecha" }],
   creator: "Tateno Pictures",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://tatenopictures.com",
-    title: "Tateno Pictures | Cinematic Storytelling & Film Academy",
-    description: "Kampala-based production studio specializing in high-end cinematography, documentaries, music videos, commercials, and professional film training.",
+    title: "Tateno Pictures | Film, Photography & Creative Production",
+    description: "A Kampala-based creative production studio working across film, photography, music videos, branded content and community-based creative skills development.",
     siteName: "Tateno Pictures",
   },
   twitter: {

@@ -62,7 +62,7 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable} ${spaceGrotesk.variable}`}>
       <body className="bg-[#060608] text-[#F0EBE3] antialiased selection:bg-[rgba(201,168,76,0.15)] selection:text-[#E2B95A]">
         <Navbar />
-        <main>{children}</main>
+        {children}
         <Footer />
       </body>
     </html>

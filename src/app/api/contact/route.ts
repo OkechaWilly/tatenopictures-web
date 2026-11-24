@@ -1,6 +1,17 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+const serviceLabels: Record<string, string> = {
+  film: "Film & documentary production",
+  "music-video": "Music video production",
+  events: "Wedding & event films",
+  photography: "Photography",
+  "post-production": "Editing & colour grading",
+  creative: "Creative visuals & design",
+  academy: "Academy & community programme",
+  general: "Something else",
+};
+
 export async function POST(req: Request) {
   try {
     const contentType = req.headers.get("content-type") || "";
@@ -29,7 +40,6 @@ export async function POST(req: Request) {
       website = formData.get("website")?.toString() || "";
     }
 
-    // Quietly discard automated submissions caught by the hidden honeypot.
     if (website.trim()) {
       return NextResponse.json(
         { success: true, message: "Your enquiry has been received. We'll be in touch soon." },
@@ -40,7 +50,7 @@ export async function POST(req: Request) {
     const cleanName = name.trim().replace(/[\r\n\t]+/g, " ");
     const cleanEmail = email.trim();
     const cleanMessage = message.trim();
-    const cleanService = service.trim().slice(0, 80);
+    const cleanService = serviceLabels[service.trim()] || service.trim().slice(0, 80);
     const cleanTimeline = timeline.trim().slice(0, 80);
 
     if (!cleanName || !cleanEmail || !cleanMessage) {
@@ -76,10 +86,7 @@ export async function POST(req: Request) {
         hasContactEmail: Boolean(contactEmail),
       });
       return NextResponse.json(
-        {
-          success: false,
-          message: "Our contact service is temporarily unavailable. Please try again later.",
-        },
+        { success: false, message: "Our contact service is temporarily unavailable. Please try again later." },
         { status: 503 }
       );
     }
@@ -121,8 +128,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // The studio has received the enquiry. A failed acknowledgement must not
-    // encourage the visitor to submit the same enquiry again.
     const { error: confirmationError } = await resend.emails.send({
       from: `Tateno Pictures <${fromEmail}>`,
       to: cleanEmail,
@@ -145,19 +150,13 @@ export async function POST(req: Request) {
     console.log("Contact enquiry delivered to studio:", { service: cleanService || "unspecified" });
 
     return NextResponse.json(
-      {
-        success: true,
-        message: "Your enquiry has been received. We'll be in touch soon.",
-      },
+      { success: true, message: "Your enquiry has been received. We'll be in touch soon." },
       { status: 200 }
     );
   } catch (error) {
     console.error("Error handling contact submission:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "We couldn't process your enquiry. Please try again in a moment.",
-      },
+      { success: false, message: "We couldn't process your enquiry. Please try again in a moment." },
       { status: 500 }
     );
   }

@@ -1,52 +1,34 @@
-'use client';
-
 import Link from 'next/link';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="border-t border-white/5 bg-[#060608] px-6 py-14 md:py-16">
-      <div className="mx-auto max-w-[1400px]">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.2fr_1fr_1fr] md:gap-8">
-          <div className="flex flex-col gap-3">
-            <Link href="/" className="w-fit font-serif text-2xl font-light tracking-[0.18em] text-[#F0EBE3] transition-colors hover:text-[#C9A84C]">
-              TATENO PICTURES
-            </Link>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8C867F]">
-              Independent creative production · Kampala, Uganda
-            </span>
-            <span className="mt-4 font-mono text-[9px] uppercase tracking-[0.15em] text-[#4A4540]">
-              © {currentYear} Tateno Pictures
-            </span>
+    <footer className="bg-[var(--ink)] px-5 py-12 text-[var(--paper-bright)] sm:px-8 md:py-16 lg:px-14">
+      <div className="mx-auto max-w-[1500px]">
+        <div className="grid gap-10 border-b border-white/15 pb-12 md:grid-cols-[1.3fr_.7fr_1fr] md:gap-16">
+          <div>
+            <Link href="/" className="text-3xl font-semibold tracking-[-.08em]">TATENO<span className="text-[#D98A6C]">.</span></Link>
+            <p className="mt-3 text-xs uppercase tracking-[.14em] text-white/55">Pictures · Kampala, Uganda</p>
           </div>
-
-          <div className="flex flex-col gap-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--gold)]">
-              Explore
-            </span>
-            <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-5 gap-y-3">
-              <Link href="/work" className="text-sm font-light text-[#8C867F] transition-colors hover:text-[var(--gold)]">Film & Video</Link>
-              <Link href="/photography" className="text-sm font-light text-[#8C867F] transition-colors hover:text-[var(--gold)]">Photography</Link>
-              <Link href="/academy" className="text-sm font-light text-[#8C867F] transition-colors hover:text-[var(--gold)]">Academy</Link>
-              <Link href="/#manifesto" className="text-sm font-light text-[#8C867F] transition-colors hover:text-[var(--gold)]">About the studio</Link>
-              <Link href="/#contact" className="text-sm font-light text-[#8C867F] transition-colors hover:text-[var(--gold)]">Contact</Link>
+          <div>
+            <span className="eyebrow text-[#D98A6C]">Explore</span>
+            <nav aria-label="Footer navigation" className="mt-5 flex flex-col gap-3 text-sm text-white/70">
+              <Link href="/work" className="hover:text-white">Film & Video</Link>
+              <Link href="/photography" className="hover:text-white">Photography</Link>
+              <Link href="/academy" className="hover:text-white">Academy</Link>
+              <Link href="/#manifesto" className="hover:text-white">The studio</Link>
+              <Link href="/#contact" className="hover:text-white">Contact</Link>
             </nav>
           </div>
-
-          <div className="flex flex-col gap-4 md:items-end">
-            <span className="w-full font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--gold)] md:text-right">
-              What we do
-            </span>
-            <p className="max-w-xs text-sm font-light leading-7 text-[#8C867F] md:text-right">
+          <div className="md:text-right">
+            <span className="eyebrow text-[#D98A6C]">Our practice</span>
+            <p className="mt-5 ml-auto max-w-sm text-sm leading-7 text-white/65">
               Film and video production, photography, cinematography, editing, colour grading and creative visual work.
             </p>
           </div>
         </div>
-
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/5 pt-6 font-mono text-[9px] uppercase tracking-[0.18em] text-[#4A4540] sm:flex-row sm:items-center sm:justify-between">
-          <span>Film · Photography · Post-production</span>
-          <span>Made in Uganda</span>
+        <div className="flex flex-col justify-between gap-3 pt-6 text-[10px] uppercase tracking-[.14em] text-white/40 sm:flex-row">
+          <span>© {new Date().getFullYear()} Tateno Pictures</span>
+          <span>Independent creative production · Made in Uganda</span>
         </div>
       </div>
     </footer>

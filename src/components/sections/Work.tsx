@@ -5,10 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData as projects } from '@/lib/projects';
-import type { Project } from '@/lib/projects';
 
 
-export default function Work() {
+export default function Work({ limit }: { limit?: number }) {
   const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
@@ -26,6 +25,7 @@ export default function Work() {
   const filteredProjects = activeFilter === 'all'
     ? projects
     : projects.filter(p => p.category === activeFilter);
+  const visibleProjects = typeof limit === 'number' ? filteredProjects.slice(0, limit) : filteredProjects;
 
   const filters = [
     { label: 'All Projects', id: 'all' },
@@ -45,7 +45,7 @@ export default function Work() {
             <h2 className="display-lg text-[#F0EBE3]">Selected Works</h2>
           </div>
           <p className="text-[#8C867F] font-sans font-light text-sm max-w-sm leading-relaxed">
-            Delivering cinematic excellence through a blend of technical precision and artistic visual narrative across commercials, films, and events.
+            A selection of films, music videos, documentaries and commissioned productions from our studio.
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export default function Work() {
         {/* Asymmetric Cinematic Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, idx) => {
+            {visibleProjects.map((project, idx) => {
               // Asymmetric grid heights to mimic premier agency designs
               const isLarge = idx % 3 === 0;
               return (
@@ -125,7 +125,7 @@ export default function Work() {
                         {project.description}
                       </p>
                       
-                      {project.specs && (
+                      {false && project.specs && (
                         <div className="grid grid-cols-2 gap-y-2 gap-x-4 border-t border-[rgba(255,255,255,0.03)] pt-3 text-[10px] font-mono text-[#8C867F]">
                           <div>
                             <span className="text-[#4A4540] block uppercase tracking-widest text-[8px] mb-0.5">Director / DP</span>
@@ -159,6 +159,13 @@ export default function Work() {
           </AnimatePresence>
         </div>
 
+        {typeof limit === 'number' && filteredProjects.length > limit && (
+          <div className="mt-12 flex justify-center">
+            <Link href="/work" className="inline-flex items-center gap-3 border border-white/20 px-6 py-3 text-xs uppercase tracking-[0.16em] text-[#F0EBE3] transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C]">
+              View all film & video work <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

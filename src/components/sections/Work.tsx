@@ -125,24 +125,7 @@ export default function Work({ limit }: { limit?: number }) {
                         {project.description}
                       </p>
                       
-                      {false && project.specs && (
-                        <div className="grid grid-cols-2 gap-y-2 gap-x-4 border-t border-[rgba(255,255,255,0.03)] pt-3 text-[10px] font-mono text-[#8C867F]">
-                          <div>
-                            <span className="text-[#4A4540] block uppercase tracking-widest text-[8px] mb-0.5">Director / DP</span>
-                            {project.specs.dp}
-                          </div>
-                          {project.duration && (
-                            <div>
-                              <span className="text-[#4A4540] block uppercase tracking-widest text-[8px] mb-0.5">Duration</span>
-                              {project.duration}
-                            </div>
-                          )}
-                          <div className="col-span-2">
-                            <span className="text-[#4A4540] block uppercase tracking-widest text-[8px] mb-0.5">Format & Optics</span>
-                            {project.specs.format} / {project.specs.lenses}
-                          </div>
-                        </div>
-                      )}
+
 
                       <div className="mt-2 text-[10px] font-mono uppercase tracking-widest text-[#C9A84C] flex items-center gap-2">
                         View Project Detail

@@ -23,15 +23,17 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
   return (
     <section id="photography" className="bg-[var(--paper)] px-5 py-20 sm:px-8 md:py-28 lg:px-14">
       <div className="mx-auto max-w-[1500px]">
-        <div className="mb-10 flex flex-col justify-between gap-5 md:mb-14 md:flex-row md:items-end">
-          <div>
-            <span className="eyebrow mb-4">02 / The still image</span>
-            <h2 className="display-lg text-[var(--ink)]">Photography.</h2>
+        {typeof limit === 'number' && (
+          <div className="mb-10 flex flex-col justify-between gap-5 md:mb-14 md:flex-row md:items-end">
+            <div>
+              <span className="eyebrow mb-4">02 / The still image</span>
+              <h2 className="display-lg text-[var(--ink)]">Photography.</h2>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-[var(--muted)] md:text-base">
+              A collection of people, places and moments, observed with care.
+            </p>
           </div>
-          <p className="max-w-md text-sm leading-7 text-[var(--muted)] md:text-base">
-            A collection of people, places and moments, observed with care.
-          </p>
-        </div>
+        )}
 
         <div className="masonry-grid">
           {visible.map((photo, index) => (

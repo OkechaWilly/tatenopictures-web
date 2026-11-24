@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tateno Pictures | Cinematic Storytelling & Film Academy",
-    description: "Kampala-based production studio specializing in high-end cinematography, documentaries, music videos, commercials, and professional film training.",
+    title: "Tateno Pictures | Film, Photography & Creative Production",
+    description: "Independent creative production in Kampala, Uganda. Explore our film, photography and post-production work.",
   },
   robots: {
     index: true,

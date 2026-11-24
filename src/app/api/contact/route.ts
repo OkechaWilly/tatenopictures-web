@@ -8,32 +8,59 @@ export async function POST(req: Request) {
     let email = "";
     let message = "";
     let service = "";
+    let timeline = "";
+    let website = "";
 
     if (contentType.includes("application/json")) {
       const body = await req.json();
-      name = body.name || "";
-      email = body.email || "";
-      message = body.message || "";
-      service = body.service || "";
+      name = String(body.name || "");
+      email = String(body.email || "");
+      message = String(body.message || "");
+      service = String(body.service || "");
+      timeline = String(body.timeline || "");
+      website = String(body.website || "");
     } else {
       const formData = await req.formData();
       name = formData.get("name")?.toString() || "";
       email = formData.get("email")?.toString() || "";
       message = formData.get("message")?.toString() || "";
       service = formData.get("service")?.toString() || "";
+      timeline = formData.get("timeline")?.toString() || "";
+      website = formData.get("website")?.toString() || "";
     }
 
-    if (!name.trim() || !email.trim() || !message.trim()) {
+    // Quietly discard automated submissions caught by the hidden honeypot.
+    if (website.trim()) {
       return NextResponse.json(
-        { success: false, message: "Missing required fields: name, email, or message." },
+        { success: true, message: "Your enquiry has been received. We'll be in touch soon." },
+        { status: 200 }
+      );
+    }
+
+    const cleanName = name.trim().replace(/[\r\n\t]+/g, " ");
+    const cleanEmail = email.trim();
+    const cleanMessage = message.trim();
+    const cleanService = service.trim().slice(0, 80);
+    const cleanTimeline = timeline.trim().slice(0, 80);
+
+    if (!cleanName || !cleanEmail || !cleanMessage) {
+      return NextResponse.json(
+        { success: false, message: "Please complete your name, email address and project message." },
+        { status: 400 }
+      );
+    }
+
+    if (cleanName.length > 100 || cleanEmail.length > 254 || cleanMessage.length < 10 || cleanMessage.length > 5000) {
+      return NextResponse.json(
+        { success: false, message: "Please check your details. The name, email or project message is outside the accepted length." },
         { status: 400 }
       );
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
+    if (!emailRegex.test(cleanEmail)) {
       return NextResponse.json(
-        { success: false, message: "Invalid email address." },
+        { success: false, message: "Please enter a valid email address." },
         { status: 400 }
       );
     }
@@ -58,24 +85,26 @@ export async function POST(req: Request) {
     }
 
     const resend = new Resend(apiKey);
-    const safeName = escapeHtml(name.trim());
-    const safeEmail = escapeHtml(email.trim());
-    const safeMessage = escapeHtml(message.trim());
-    const safeService = escapeHtml(service.trim());
+    const safeName = escapeHtml(cleanName);
+    const safeEmail = escapeHtml(cleanEmail);
+    const safeMessage = escapeHtml(cleanMessage);
+    const safeService = escapeHtml(cleanService);
+    const safeTimeline = escapeHtml(cleanTimeline);
 
     const { error: inquiryError } = await resend.emails.send({
       from: `Tateno Pictures <${fromEmail}>`,
       to: contactEmail,
-      replyTo: email.trim(),
-      subject: `New Project Inquiry from ${name.trim()}${service ? ` - ${service.trim()}` : ""}`,
+      replyTo: cleanEmail,
+      subject: `New Project Inquiry from ${cleanName}${cleanService ? ` - ${cleanService}` : ""}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #C9A84C;">New Project Inquiry</h2>
-          <div style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-left: 4px solid #C9A84C;">
+          <h2 style="color: #B85B3D;">New Project Inquiry</h2>
+          <div style="margin: 20px 0; padding: 20px; background-color: #f7f5f0; border-left: 4px solid #B85B3D;">
             <p><strong>Name:</strong> ${safeName}</p>
             <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
-            ${service ? `<p><strong>Service Interest:</strong> ${safeService}</p>` : ""}
-            <p><strong>Message:</strong></p>
+            ${cleanService ? `<p><strong>Service interest:</strong> ${safeService}</p>` : ""}
+            ${cleanTimeline ? `<p><strong>Preferred timing:</strong> ${safeTimeline}</p>` : ""}
+            <p><strong>Project details:</strong></p>
             <p style="white-space: pre-wrap;">${safeMessage}</p>
           </div>
           <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
@@ -92,19 +121,19 @@ export async function POST(req: Request) {
       );
     }
 
-    // The enquiry is safely delivered to the studio; a failed acknowledgement
-    // should not encourage the visitor to submit the same enquiry again.
+    // The studio has received the enquiry. A failed acknowledgement must not
+    // encourage the visitor to submit the same enquiry again.
     const { error: confirmationError } = await resend.emails.send({
       from: `Tateno Pictures <${fromEmail}>`,
-      to: email.trim(),
+      to: cleanEmail,
       subject: "We received your message - Tateno Pictures",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #C9A84C;">Thank you, ${safeName}!</h2>
-          <p style="color: #666;">We've received your message and appreciate your interest in working with Tateno Pictures.</p>
-          <p style="color: #666;">Our team will review your enquiry and get back to you within 24-48 hours.</p>
+          <h2 style="color: #B85B3D;">Thank you, ${safeName}.</h2>
+          <p style="color: #555;">We've received your project enquiry and appreciate you considering Tateno Pictures.</p>
+          <p style="color: #555;">A member of the studio will review your message and respond as soon as possible.</p>
           <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
-          <p style="font-size: 12px; color: #999;"><strong>Tateno Pictures</strong><br/>Kampala, Uganda</p>
+          <p style="font-size: 12px; color: #777;"><strong>Tateno Pictures</strong><br/>Kampala, Uganda</p>
         </div>
       `,
     });
@@ -113,7 +142,7 @@ export async function POST(req: Request) {
       console.error("Studio received the enquiry, but the client confirmation email failed:", confirmationError);
     }
 
-    console.log("Contact enquiry delivered to studio:", { service: service || "unspecified" });
+    console.log("Contact enquiry delivered to studio:", { service: cleanService || "unspecified" });
 
     return NextResponse.json(
       {
@@ -127,7 +156,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: "We couldn't process your enquiry. Please try again later.",
+        message: "We couldn't process your enquiry. Please try again in a moment.",
       },
       { status: 500 }
     );

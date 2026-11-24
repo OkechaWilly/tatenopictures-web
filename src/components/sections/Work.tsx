@@ -46,7 +46,7 @@ export default function Work({ limit }: { limit?: number }) {
           {visible.map((project, index) => {
             const featured = index === 0 || index === 3;
             return (
-              <motion.article key={project.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .55, delay: (index % 2) * .08 }} className={`group md:col-span-${featured ? '7' : '5'} ${index % 2 === 1 ? 'md:mt-16' : ''}`}>
+              <motion.article key={project.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .55, delay: (index % 2) * .08 }} className={`group ${featured ? 'md:col-span-7' : 'md:col-span-5'} ${index % 2 === 1 ? 'md:mt-16' : ''}`}>
                 <Link href={`/work/${project.slug}`} className="block">
                   <div className={`relative overflow-hidden bg-[#E5E2D9] ${featured ? 'aspect-[1.2]' : 'aspect-[.98]'}`}>
                     <Image src={project.image} alt={project.title} fill sizes="(max-width: 768px) 100vw, 60vw" priority={index === 0} className="object-cover transition-transform duration-700 group-hover:scale-[1.035]" />

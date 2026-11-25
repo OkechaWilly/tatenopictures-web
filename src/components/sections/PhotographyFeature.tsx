@@ -49,6 +49,18 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
   return (
     <section id="photography" className="bg-[var(--paper)] px-5 py-12 sm:px-8 md:py-20 lg:px-14">
       <div className="mx-auto max-w-[1500px]">
+        {typeof limit === 'number' && (
+          <div className="mb-9 flex flex-col justify-between gap-5 border-b border-[var(--line)] pb-6 sm:flex-row sm:items-end md:mb-12 md:pb-8">
+            <div>
+              <span className="eyebrow mb-4">02 / Selected photography</span>
+              <h2 className="display-lg max-w-3xl text-[var(--ink)]">People, places <span className="font-serif font-normal italic text-[var(--accent)]">and the moments between.</span></h2>
+              <p className="mt-5 max-w-lg text-sm leading-7 text-[var(--muted)] md:text-base">
+                A closer look at the details, character and atmosphere that make every story worth remembering.
+              </p>
+            </div>
+            <span className="pb-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">A growing visual archive</span>
+          </div>
+        )}
         {!limit && (
           <div className="mb-8 flex flex-col justify-between gap-6 border-b border-[var(--line)] pb-5 sm:flex-row sm:items-end">
             <div>

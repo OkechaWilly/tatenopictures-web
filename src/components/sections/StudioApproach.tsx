@@ -32,14 +32,14 @@ export default function StudioApproach() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-8 border-b border-[var(--line)] pb-10 md:grid-cols-[.9fr_1.1fr] md:items-end md:pb-14">
           <div>
-            <span className="eyebrow mb-5">04 / From brief to delivery</span>
-            <h2 className="display-lg max-w-2xl">Good work starts with <span className="font-serif font-normal italic text-[var(--accent)]">a clear process.</span></h2>
+            
+            <h2 className="display-lg max-w-2xl">Good work starts with a clear process.</h2>
           </div>
           <div className="max-w-xl md:justify-self-end">
             <p className="text-sm leading-8 text-[var(--muted)] md:text-base">
               Every project is different. We keep the process collaborative and practical — aligning on what needs to be made, how we will make it and what the finished work needs to do.
             </p>
-            <Link href="/#contact" className="btn-outline mt-6">Discuss a project <span aria-hidden="true">↗</span></Link>
+            <Link href="/#contact" className="btn-outline mt-6">Discuss a project</Link>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export default function StudioApproach() {
               transition={{ duration: 0.45, delay: index * 0.06 }}
               className="border-b border-[var(--line)] py-7 sm:pr-7 lg:border-b-0 lg:border-r lg:px-7 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0"
             >
-              <span className="font-mono text-xs tracking-[.12em] text-[var(--accent)]">{stage.number}</span>
+              
               <h3 className="mt-8 text-xl font-semibold tracking-[-.045em] text-[var(--ink)]">{stage.title}</h3>
               <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--muted)]">{stage.description}</p>
             </motion.article>

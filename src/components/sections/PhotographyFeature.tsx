@@ -52,8 +52,8 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
         {typeof limit === 'number' && (
           <div className="mb-9 flex flex-col justify-between gap-5 border-b border-[var(--line)] pb-6 sm:flex-row sm:items-end md:mb-12 md:pb-8">
             <div>
-              <span className="eyebrow mb-4">02 / Selected photography</span>
-              <h2 className="display-lg max-w-3xl text-[var(--ink)]">People, places <span className="font-serif font-normal italic text-[var(--accent)]">and the moments between.</span></h2>
+              
+              <h2 className="display-lg max-w-3xl text-[var(--ink)]">People, places and the moments between.</h2>
               <p className="mt-5 max-w-lg text-sm leading-7 text-[var(--muted)] md:text-base">
                 A closer look at the details, character and atmosphere that make every story worth remembering.
               </p>
@@ -64,7 +64,7 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
         {!limit && (
           <div className="mb-8 flex flex-col justify-between gap-6 border-b border-[var(--line)] pb-5 sm:flex-row sm:items-end">
             <div>
-              <span className="eyebrow mb-3">Selected stills / Tateno Pictures</span>
+              <h2 className="display-md mb-3 font-semibold text-[var(--ink)]">A closer look.</h2>
               <p className="max-w-md text-sm leading-7 text-[var(--muted)]">A growing collection of people, places and moments, seen through our lens.</p>
             </div>
             <div className="flex gap-x-6 gap-y-3 overflow-x-auto" aria-label="Filter photographs">
@@ -93,7 +93,7 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
               <img src={photo.src} alt={photo.alt} loading={index < 4 ? 'eager' : 'lazy'} className="h-auto w-full" />
               <span className="masonry-item-overlay">
                 <span className="text-[10px] font-medium uppercase tracking-[.15em] text-white">{photo.label}</span>
-                <span className="ml-auto text-lg text-white" aria-hidden="true">↗</span>
+                
               </span>
             </motion.button>
           ))}
@@ -103,7 +103,7 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
 
         {typeof limit === 'number' && photos.length > limit && (
           <div className="mt-12 flex justify-center">
-            <Link href="/photography" className="btn-outline">View the photography archive <span aria-hidden="true">↗</span></Link>
+            <Link href="/photography" className="btn-outline">View photography archive</Link>
           </div>
         )}
       </div>
@@ -120,11 +120,11 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
             aria-modal="true"
             aria-label="Photograph viewer"
           >
-            <button type="button" onClick={closeViewer} className="absolute right-5 top-5 z-10 border border-white/30 px-4 py-2 text-xs uppercase tracking-widest text-white transition hover:bg-white hover:text-black">Close ×</button>
+            <button type="button" onClick={closeViewer} className="absolute right-5 top-5 z-10 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black">Close</button>
             <button type="button" onClick={showPrevious} aria-label="Previous photograph" className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 text-2xl text-white transition hover:bg-white hover:text-black sm:left-7">‹</button>
             <div className="flex max-h-[88vh] max-w-6xl flex-col items-center">
               <img src={visible[selected].src} alt={visible[selected].alt} className="max-h-[78vh] max-w-full object-contain" />
-              <p className="mt-4 text-center text-xs uppercase tracking-[.16em] text-white/65">{visible[selected].label} <span className="mx-2 text-white/30">/</span>{String(selected + 1).padStart(2, '0')} of {String(visible.length).padStart(2, '0')}</p>
+              <p className="mt-4 text-center text-sm text-white/70">{visible[selected].label}</p>
             </div>
             <button type="button" onClick={showNext} aria-label="Next photograph" className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 text-2xl text-white transition hover:bg-white hover:text-black sm:right-7">›</button>
           </motion.div>

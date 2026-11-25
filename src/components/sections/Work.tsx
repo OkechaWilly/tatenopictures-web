@@ -35,7 +35,7 @@ export default function Work({ limit }: { limit?: number }) {
         {!limit && (
           <div className="mb-9 flex gap-7 overflow-x-auto border-b border-[var(--line)]">
             {filters.map((item) => (
-              <button key={item.value} type="button" onClick={() => setFilter(item.value)} className={`filter-tab ${filter === item.value ? 'active' : ''}`}>
+              <button key={item.value} type="button" onClick={() => setFilter(item.value)} aria-pressed={filter === item.value} className={`filter-tab ${filter === item.value ? 'active' : ''}`}>
                 {item.label}
               </button>
             ))}

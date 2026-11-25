@@ -41,10 +41,10 @@ export default function Navbar() {
             </Link>
           ))}
           <Link href="/#manifesto" className="nav-link">Studio</Link>
-          <Link href="/#contact" className="ml-1 inline-flex min-h-10 items-center bg-[var(--ink)] px-4 text-[10px] font-semibold uppercase tracking-[.1em] text-white transition-colors hover:bg-[var(--accent)]">Let's talk <span className="ml-2">↗</span></Link>
+          <Link href="/#contact" className="ml-1 inline-flex min-h-11 items-center rounded-full bg-[var(--ink)] px-6 text-xs font-semibold text-white transition-colors hover:bg-[var(--accent)]">Let's talk</Link>
         </div>
 
-        <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] border border-[var(--line)] md:hidden">
+        <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border border-[var(--line)] md:hidden">
           <span className={`h-px w-5 bg-[var(--ink)] transition-transform ${open ? 'translate-y-[3px] rotate-45' : ''}`} />
           <span className={`h-px w-5 bg-[var(--ink)] transition-opacity ${open ? 'opacity-0' : ''}`} />
           <span className={`h-px w-5 bg-[var(--ink)] transition-transform ${open ? '-translate-y-[9px] -rotate-45' : ''}`} />
@@ -55,9 +55,9 @@ export default function Navbar() {
         {open && (
           <motion.div id="mobile-navigation" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="border-t border-[var(--line)] bg-[var(--paper-bright)] px-6 py-8 md:hidden">
             <div className="flex flex-col gap-6">
-              {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="text-2xl font-medium tracking-[-.05em] text-[var(--ink)]">{link.label}<span className="ml-2 text-[var(--accent)]">↗</span></Link>)}
+              {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="text-2xl font-semibold tracking-[-.04em] text-[var(--ink)]">{link.label}</Link>)}
               <Link href="/#manifesto" onClick={() => setOpen(false)} className="text-2xl font-medium tracking-[-.05em] text-[var(--ink)]">The studio</Link>
-              <Link href="/#contact" onClick={() => setOpen(false)} className="text-2xl font-medium tracking-[-.05em] text-[var(--accent)]">Start a project ↗</Link>
+              <Link href="/#contact" onClick={() => setOpen(false)} className="text-2xl font-semibold tracking-[-.04em] text-[var(--accent)]">Start a project</Link>
             </div>
           </motion.div>
         )}

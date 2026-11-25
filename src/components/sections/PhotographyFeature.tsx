@@ -121,12 +121,12 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
             aria-label="Photograph viewer"
           >
             <button type="button" onClick={closeViewer} className="absolute right-5 top-5 z-10 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black">Close</button>
-            <button type="button" onClick={showPrevious} aria-label="Previous photograph" className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 text-2xl text-white transition hover:bg-white hover:text-black sm:left-7">‹</button>
+            <button type="button" onClick={showPrevious} aria-label="Previous photograph" className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/30 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black sm:left-7">Previous</button>
             <div className="flex max-h-[88vh] max-w-6xl flex-col items-center">
               <img src={visible[selected].src} alt={visible[selected].alt} className="max-h-[78vh] max-w-full object-contain" />
               <p className="mt-4 text-center text-sm text-white/70">{visible[selected].label}</p>
             </div>
-            <button type="button" onClick={showNext} aria-label="Next photograph" className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 text-2xl text-white transition hover:bg-white hover:text-black sm:right-7">›</button>
+            <button type="button" onClick={showNext} aria-label="Next photograph" className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/30 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black sm:right-7">Next</button>
           </motion.div>
         )}
       </AnimatePresence>

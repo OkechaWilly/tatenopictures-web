@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 
 const capabilities = [
-  { number: '01', title: 'Film & moving image', detail: 'Documentary, narrative, music and commissioned productions.' },
-  { number: '02', title: 'Cinematography', detail: 'Visual direction, camera and lighting shaped around the story.' },
-  { number: '03', title: 'Photography', detail: 'People, places, events and considered visual records.' },
-  { number: '04', title: 'Post-production', detail: 'Editing, colour grading and finishing for a coherent final work.' },
+  { title: 'Film & moving image', detail: 'Documentary, narrative, music and commissioned productions.' },
+  { title: 'Cinematography', detail: 'Visual direction, camera and lighting shaped around the story.' },
+  { title: 'Photography', detail: 'People, places, events and considered visual records.' },
+  { title: 'Post-production', detail: 'Editing, colour grading and finishing for a coherent final work.' },
 ];
 
 export default function Statement() {
@@ -31,9 +31,8 @@ export default function Statement() {
 
         <div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
           {capabilities.map((item, index) => (
-            <motion.article key={item.number} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .45, delay: index * .06 }} className="border-b border-white/15 py-7 sm:pr-7 lg:border-b-0 lg:border-r lg:px-7 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
-              <span className="font-mono text-xs text-[#D98A6C]">{item.number}</span>
-              <h3 className="mt-6 text-lg font-semibold tracking-[-.035em] text-white">{item.title}</h3>
+            <motion.article key={item.title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .45, delay: index * .06 }} className="border-b border-white/15 py-7 sm:pr-7 lg:border-b-0 lg:border-r lg:px-7 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
+              <h3 className="text-lg font-semibold tracking-[-.035em] text-white">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-white/55">{item.detail}</p>
             </motion.article>
           ))}

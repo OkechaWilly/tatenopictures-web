@@ -2,71 +2,41 @@
 
 import { motion } from 'framer-motion';
 
+const capabilities = [
+  { title: 'Film & moving image', detail: 'Documentary, narrative, music and commissioned productions.' },
+  { title: 'Cinematography', detail: 'Visual direction, camera and lighting shaped around the story.' },
+  { title: 'Photography', detail: 'People, places, events and considered visual records.' },
+  { title: 'Post-production', detail: 'Editing, colour grading and finishing for a coherent final work.' },
+];
+
 export default function Statement() {
-  const stats = [
-    { number: '8+', label: 'Years in Production' },
-    { number: '200+', label: 'Projects Completed' },
-    { number: '3', label: 'Countries Active' },
-  ];
-
   return (
-    <section id="manifesto" className="bg-[#060608] section-pad page-pad relative overflow-hidden">
-      {/* Background Texture grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(201,168,76,0.02)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto relative z-10 flex flex-col justify-center min-h-[50vh]">
-        
-        {/* Decorative Golden Line */}
-        <motion.div 
-          initial={{ width: 0 }}
-          whileInView={{ width: '4rem' }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          className="h-[1px] bg-[#C9A84C] mb-12"
-        />
-
-        {/* Studio Manifesto Statement */}
-        <div className="mb-20 md:mb-28">
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="label-gold mb-6"
-          >
-            Studio Manifesto
-          </motion.p>
-          <motion.h3
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="text-4xl sm:text-6xl md:text-8xl font-serif font-light text-[#F0EBE3] tracking-tight leading-[1.05] max-w-5xl"
-          >
-            We don&apos;t just film.<br />
-            <span className="italic text-[#C9A84C]">We build visual memory.</span>
-          </motion.h3>
+    <section id="manifesto" className="bg-[var(--ink)] px-5 py-20 text-[var(--paper-bright)] sm:px-8 md:py-28 lg:px-14">
+      <div className="mx-auto max-w-[1500px]">
+        <div className="grid gap-12 border-b border-white/15 pb-12 lg:grid-cols-[1.2fr_.8fr] lg:gap-24 lg:pb-16">
+          <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="max-w-4xl text-[clamp(2.8rem,6.4vw,6.2rem)] font-semibold leading-[.98] tracking-[-.07em]">
+              The way a story is seen changes <span className="font-semibold text-[#D98A6C]">the way it is felt.</span>
+            </h2>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: .1 }} className="flex flex-col justify-end">
+            <p className="max-w-xl text-sm leading-8 text-white/65 md:text-base">
+              Based in Kampala, Tateno Pictures is an independent production studio working across film, photography and post-production. We pay attention to the people, places and details within a story — then bring the right creative and technical craft to shape how it reaches an audience.
+            </p>
+            <p className="mt-5 max-w-xl text-sm leading-8 text-white/65 md:text-base">
+              Our work begins with listening, develops through collaboration and is carried carefully through to the final frame.
+            </p>
+          </motion.div>
         </div>
 
-        {/* Stat Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 border-t border-[rgba(201,168,76,0.08)] pt-12">
-          {stats.map((stat, idx) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
-              className="flex flex-col"
-            >
-              <span className="stat-number text-[#F0EBE3]">{stat.number}</span>
-              <span className="text-xs font-mono text-[#8C867F] uppercase tracking-widest mt-2">
-                {stat.label}
-              </span>
-            </motion.div>
+        <div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
+          {capabilities.map((item, index) => (
+            <motion.article key={item.title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .45, delay: index * .06 }} className="border-b border-white/15 py-7 sm:pr-7 lg:border-b-0 lg:border-r lg:px-7 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
+              <h3 className="text-lg font-semibold tracking-[-.035em] text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-white/55">{item.detail}</p>
+            </motion.article>
           ))}
         </div>
-
       </div>
     </section>
   );

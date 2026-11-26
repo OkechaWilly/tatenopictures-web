@@ -4,68 +4,66 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-serif",
-  display: "swap",
-});
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tatenopictures-web.vercel.app";
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-mono",
-  display: "swap",
-});
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-serif", display: "swap" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Tateno Pictures | Cinematic Storytelling & Film Academy",
-    template: "%s | Tateno Pictures",
-  },
-  description: "Kampala-based production studio specializing in high-end cinematography, documentaries, music videos, commercials, and professional film training.",
-  keywords: ["Tateno Pictures", "Willy Okecha", "Cinematography Uganda", "Film Production Kampala", "Documentary Filmmaking", "Music Videos East Africa", "Film Academy Uganda", "DaVinci Resolve Color Grading"],
-  authors: [{ name: "Willy Okecha" }],
+  metadataBase: new URL(siteUrl),
+  title: { default: "Tateno Pictures | Film, Photography & Creative Production", template: "%s | Tateno Pictures" },
+  description: "Independent creative production in Kampala, Uganda. Film, photography, cinematography, editing and colour grading.",
+  keywords: ["Tateno Pictures", "Film Production Uganda", "Photography Kampala", "Documentary Filmmaking", "Music Videos Uganda"],
+  authors: [{ name: "Tateno Pictures" }],
   creator: "Tateno Pictures",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://tatenopictures.com",
-    title: "Tateno Pictures | Cinematic Storytelling & Film Academy",
-    description: "Kampala-based production studio specializing in high-end cinematography, documentaries, music videos, commercials, and professional film training.",
+    locale: "en_UG",
+    url: siteUrl,
+    title: "Tateno Pictures | Film, Photography & Creative Production",
+    description: "Independent creative production in Kampala, Uganda. Film, photography and post-production.",
     siteName: "Tateno Pictures",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Tateno Pictures | Cinematic Storytelling & Film Academy",
-    description: "Kampala-based production studio specializing in high-end cinematography, documentaries, music videos, commercials, and professional film training.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  twitter: { card: "summary_large_image", title: "Tateno Pictures", description: "Film, photography and post-production from Kampala, Uganda." },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Tateno Pictures",
+  url: siteUrl,
+  description: "Independent creative production studio working across film, photography and post-production.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kampala",
+    addressCountry: "UG",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Uganda",
+  },
+  knowsAbout: [
+    "Film production",
+    "Documentary filmmaking",
+    "Cinematography",
+    "Photography",
+    "Video editing",
+    "Colour grading",
+  ],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable} ${spaceGrotesk.variable}`}>
-      <body className="bg-[#060608] text-[#F0EBE3] antialiased selection:bg-[rgba(201,168,76,0.15)] selection:text-[#E2B95A]">
+      <body className="bg-[var(--paper)] text-[var(--ink)] antialiased">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <Navbar />
-        <main>{children}</main>
+        {children}
         <Footer />
       </body>
     </html>
   );
 }
-

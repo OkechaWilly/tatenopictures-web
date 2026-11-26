@@ -1,334 +1,78 @@
-'use client';
-
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import Image from 'next/image';
 
-interface Course {
-  slug: string;
-  title: string;
-  duration: string;
-  level: string;
-  instructor: string;
-  description: string;
-  curriculum: string[];
-  equipment: string;
-  price: string;
-}
-
-const coursesData: Course[] = [
-  {
-    slug: 'cinematography-masterclass',
-    title: 'Cinematography Masterclass',
-    duration: '6 Weeks',
-    level: 'Beginner to Intermediate',
-    instructor: 'Willy Okecha',
-    description: 'Master the art of camera operations, scene lighting, and visual tone. This hands-on course takes you from basic manual camera functions to staging and shooting complex cinematic scenes on professional digital sensors.',
-    curriculum: [
-      'Understanding Exposure, Aperture, & Shutter Angles',
-      'Sculpting Light: Three-Point Lighting & Contrast Ratios',
-      'Camera Support: Gimbal Operation, Sliders, & Shoulder Rigs',
-      'Scene Blocking: Translating Scripts into Shot Lists',
-      'Color Space: Log, RAW, & Color Space Transforms'
-    ],
-    equipment: 'RED Komodo 6K, Sony FX3, Arri Amira, Aputure COB Lights, Cooke/Zeiss Primes',
-    price: '$650 USD'
-  },
-  {
-    slug: 'davinci-resolve-color-grading',
-    title: 'DaVinci Resolve Color Grading',
-    duration: '4 Weeks',
-    level: 'Intermediate to Advanced',
-    instructor: 'Color Team Lead',
-    description: 'Learn the industry-standard color correction software. From balancing multi-camera setups to manipulating tones, managing color spaces, and designing distinct cinematic look tables (LUTs) for feature films.',
-    curriculum: [
-      'DaVinci Resolve Node Tree Architecture & Management',
-      'Primary & Secondary Color Corrections',
-      'HDR Grading & Log Color Workspace Management',
-      'Film Emulation, Grain Texturing, & Halation Effects',
-      'Conforming, Mastering, and Final Delivery Specs'
-    ],
-    equipment: 'DaVinci Resolve Studio, DaVinci Micro Panels, Eizo Color-Calibrated Displays',
-    price: '$450 USD'
-  },
-  {
-    slug: 'directing-visual-narratives',
-    title: 'Directing & Visual Narratives',
-    duration: '8 Weeks',
-    level: 'All Levels',
-    instructor: 'Guest Director & Willy Okecha',
-    description: 'Break down scripts, collaborate with actors, and design visually compelling stories. Learn the complete workflow of a director, from initial project pitches and financing to post-production and distribution.',
-    curriculum: [
-      'Visual Script Analysis & Creative Prep',
-      'Director-Actor Communication & Scene Staging',
-      'Department Coordination (Cinematography, Sound, Production Design)',
-      'Editorial Pacing, Audio Design, & Scoring Direction',
-      'Film Festival Submissions & Distribution Strategy'
-    ],
-    equipment: 'Professional Soundstage, Wireless Monitors, Director Comm Rigs',
-    price: '$800 USD'
-  }
+const learningAreas = [
+  ['Graphic design', 'Visual communication, creative tools and turning ideas into clear designs.'],
+  ['Camera work', 'Camera operation, framing, composition and visual storytelling.'],
+  ['Photography', 'Observing light, capturing moments and making thoughtful images.'],
+  ['Video editing', 'Organising footage, shaping a story and preparing work for delivery.'],
 ];
 
 export default function AcademyPage() {
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [enrollFormStatus, setEnrollFormStatus] = useState<string | null>(null);
-  const [isEnrolling, setIsEnrolling] = useState(false);
-
-  const handleEnrollSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsEnrolling(true);
-    setTimeout(() => {
-      setIsEnrolling(false);
-      setEnrollFormStatus('Thank you. Your application has been received. Our registrar team will reach out shortly.');
-      e.currentTarget.reset();
-    }, 1500);
-  };
-
   return (
-    <main className="w-full bg-[#060608] min-h-screen text-[#F0EBE3] pb-24">
-      {/* Header Spacer */}
-      <div className="h-24" />
-
-      {/* Cinematic Academy Intro Hero */}
-      <section className="relative w-full py-24 md:py-36 page-pad overflow-hidden border-b border-[rgba(201,168,76,0.1)] bg-gradient-to-b from-[#0A090D] to-[#060608]">
-        {/* Subtle glowing elements */}
-        <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-[rgba(201,168,76,0.03)] blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] rounded-full bg-white/[0.01] blur-[150px] pointer-events-none" />
-
-        <div className="max-w-[1400px] mx-auto text-center flex flex-col items-center justify-center relative z-10">
-          <span className="label-gold mb-6 block">Tateno Film Academy</span>
-          <h1 className="display-lg uppercase leading-none text-[#F0EBE3] mb-6">
-            Nurturing the Next <br />
-            <span className="italic text-[var(--gold)] font-serif font-light lowercase">generation of</span> filmmakers
-          </h1>
-          <p className="text-[var(--text-secondary)] font-sans font-light text-base md:text-lg max-w-2xl leading-relaxed">
-            Gain industry-ready, hands-on experience in visual storytelling. We offer intensive training modules led by working cinematographers and directors, utilizing professional-grade equipment.
+    <main className="min-h-screen bg-[var(--paper)] pb-20 pt-28 text-[var(--ink)]">
+      <section className="px-5 py-16 sm:px-8 md:py-24 lg:px-14">
+        <div className="mx-auto grid max-w-[1500px] items-end gap-12 lg:grid-cols-[1fr_.8fr]">
+          <div>
+            <span className="eyebrow mb-6">Community programme · Since 2023</span>
+            <h1 className="display-xl max-w-4xl">The next generation of <span className="font-semibold text-[var(--accent)]">makers.</span></h1>
+          </div>
+          <p className="max-w-xl pb-2 text-base leading-8 text-[var(--muted)] md:text-lg">
+            A practical creative learning programme where young people explore design, photography and film — and discover how those skills are used in the real world.
           </p>
         </div>
       </section>
 
-      {/* Course Listing */}
-      <section className="max-w-[1400px] mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {coursesData.map((course) => (
-            <div 
-              key={course.slug} 
-              className="bg-[#0D0C0F] border border-[rgba(201,168,76,0.1)] p-8 rounded-sm flex flex-col justify-between h-full group hover:border-[rgba(201,168,76,0.25)] transition-colors duration-500"
-            >
-              <div>
-                <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4 font-mono text-[9px] uppercase tracking-widest text-[var(--text-secondary)]">
-                  <span>{course.duration}</span>
-                  <span className="text-[var(--gold)]">{course.level}</span>
-                </div>
-
-                <h3 className="text-xl md:text-2xl font-serif font-light text-[#F0EBE3] mb-4 group-hover:text-[var(--gold)] transition-colors duration-300">
-                  {course.title}
-                </h3>
-
-                <p className="text-[var(--text-secondary)] font-sans font-light text-xs leading-relaxed mb-6">
-                  {course.description}
-                </p>
-
-                <div className="mb-6 font-mono text-[9px] tracking-widest text-[#4A4540] uppercase">
-                  <span>Led by: {course.instructor}</span>
-                </div>
-
-                <div className="mb-8">
-                  <h4 className="text-[9px] font-mono tracking-[0.2em] text-[var(--gold)] uppercase mb-3">Curriculum Focus</h4>
-                  <ul className="space-y-2.5">
-                    {course.curriculum.slice(0, 3).map((item, idx) => (
-                      <li key={idx} className="flex items-start text-[11px] text-[var(--text-secondary)] font-light leading-relaxed">
-                        <span className="text-[var(--gold)] mr-2 font-mono">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                    <li className="text-[10px] text-[#4A4540] font-mono uppercase tracking-widest pl-4">
-                      + And more curriculum modules
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-white/5">
-                <div className="flex justify-between items-center text-[10px] font-mono tracking-widest text-[var(--text-secondary)]">
-                  <span>TUITION</span>
-                  <span className="text-[#F0EBE3] font-semibold">{course.price}</span>
-                </div>
-                <button
-                  onClick={() => setSelectedCourse(course)}
-                  className="btn-outline w-full justify-center mt-2 cursor-pointer"
-                >
-                  Apply / Course Details
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Private Training Statement */}
-      <section className="max-w-[1200px] mx-auto px-6 py-12">
-        <div className="bg-[#0D0C0F] border border-[rgba(201,168,76,0.1)] p-8 sm:p-12 rounded-sm flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="max-w-2xl text-left">
-            <span className="label-gold mb-2 block">Custom Mentorship</span>
-            <h3 className="text-xl md:text-2xl font-serif font-light text-[#F0EBE3] tracking-wide uppercase mb-3">
-              Corporate & 1-on-1 private training
-            </h3>
-            <p className="text-[var(--text-secondary)] text-sm font-light leading-relaxed">
-              We structure custom visual workshops, private DaVinci color grading courses, or university guest lecture modules tailored to your organization&apos;s goals and schedules.
-            </p>
+      <section className="px-5 sm:px-8 lg:px-14">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="relative aspect-[1.7] overflow-hidden bg-[#D5D1C7] md:aspect-[2.25]">
+            <Image src="/images/directing-still.jpg" alt="Learning and collaboration during a production" fill priority sizes="100vw" className="object-cover" />
           </div>
-          <button
-            onClick={() => {
-              const el = document.getElementById('contact');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-gold whitespace-nowrap"
-          >
-            <span>Inquire About Custom Mentorship</span>
-          </button>
+          <div className="mt-3 flex justify-between text-[10px] uppercase tracking-[.14em] text-[var(--muted)]"><span>Learn · Practise · Experience</span><span>Tateno Pictures Academy</span></div>
         </div>
       </section>
 
-      {/* Course Detail Modal & Application Form */}
-      <AnimatePresence>
-        {selectedCourse && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#060608]/96 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto"
-            onClick={() => {
-              setSelectedCourse(null);
-              setEnrollFormStatus(null);
-            }}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 30, scale: 0.98 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-3xl bg-[#0D0C0F] border border-[rgba(201,168,76,0.15)] shadow-2xl p-8 sm:p-12 rounded-sm my-8"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => {
-                  setSelectedCourse(null);
-                  setEnrollFormStatus(null);
-                }}
-                className="absolute top-6 right-6 text-[var(--text-secondary)] hover:text-[#F0EBE3] font-mono text-xs uppercase tracking-widest"
-              >
-                Close ✕
-              </button>
+      <section className="mx-auto grid max-w-[1500px] gap-10 px-5 py-20 sm:px-8 md:grid-cols-[.7fr_1.3fr] md:py-28 lg:px-14">
+        <div><h2 className="display-md max-w-md">Creative skills should be within reach.</h2></div>
+        <div className="max-w-3xl space-y-5 text-sm leading-8 text-[var(--muted)] md:text-base">
+          <p>Since 2023, Tateno Pictures has worked with young people in the surrounding community, introducing them to practical skills in graphic design, camera work, photography and video editing.</p>
+          <p>Learning goes beyond demonstrations. We encourage hands-on practice and, when opportunities arise, take learners into real production environments — including wedding assignments, music videos for local artists and other creative jobs.</p>
+          <p>These experiences help young people see how a production comes together: preparation, teamwork, creative problem-solving and the responsibility of working on a real assignment.</p>
+        </div>
+      </section>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-                
-                {/* Course Details (Left) */}
-                <div className="flex flex-col gap-6 text-left">
-                  <div>
-                    <span className="label-gold mb-2 block">{selectedCourse.duration} • {selectedCourse.level}</span>
-                    <h3 className="text-2xl font-serif font-light text-[#F0EBE3] tracking-wide uppercase">
-                      {selectedCourse.title}
-                    </h3>
-                    <span className="text-[10px] text-[#4A4540] font-mono tracking-widest uppercase block mt-1">
-                      Instructor: {selectedCourse.instructor}
-                    </span>
-                  </div>
+      <section className="bg-[#E9E6DE] px-5 py-20 sm:px-8 md:py-24 lg:px-14">
+        <div className="mx-auto max-w-[1500px]">
 
-                  <p className="text-xs text-[var(--text-secondary)] font-light leading-relaxed">
-                    {selectedCourse.description}
-                  </p>
+          <h2 className="display-lg mb-12">A foundation in creative practice.</h2>
+          <div className="grid border-l border-t border-[var(--line)] sm:grid-cols-2">
+            {learningAreas.map(([title,description]) => (
+              <article key={title} className="border-b border-r border-[var(--line)] p-7 md:p-10">
+                <h3 className="text-2xl font-semibold tracking-[-.05em]">{title}</h3>
+                <p className="mt-3 max-w-md text-sm leading-7 text-[var(--muted)]">{description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                  <div>
-                    <span className="text-[9px] font-mono tracking-[0.25em] text-[var(--gold)] uppercase block mb-3">Complete Curriculum</span>
-                    <ul className="flex flex-col gap-2.5">
-                      {selectedCourse.curriculum.map((item, idx) => (
-                        <li key={idx} className="flex items-start text-xs text-[var(--text-secondary)] font-light leading-relaxed">
-                          <span className="text-[var(--gold)] mr-2 font-mono">{idx + 1}.</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+      <section className="mx-auto grid max-w-[1500px] gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 md:py-28 lg:px-14">
+        <div><h2 className="display-md">Experience is part of the learning.</h2></div>
+        <div className="space-y-7">
+          {[
+            ['Learn the foundations','Build an understanding of tools, techniques and creative thinking.'],
+            ['Practise by doing','Develop confidence through exercises, guided tasks and practical projects.'],
+            ['Step into real productions','Where appropriate, observe and assist on live assignments with the studio.'],
+          ].map(([title,description],index) => <article key={title} className="border-t border-[var(--line)] pt-5"><h3 className="text-xl font-semibold tracking-[-.04em]">{title}</h3><p className="mt-2 text-sm leading-7 text-[var(--muted)]">{description}</p></article>)}
+        </div>
+      </section>
 
-                  <div className="border-t border-white/5 pt-4 text-[9px] font-mono uppercase tracking-widest text-[#4A4540]">
-                    <span className="block text-[8px] text-[var(--gold)] mb-1">Production Equipment</span>
-                    <span className="text-[var(--text-secondary)]">{selectedCourse.equipment}</span>
-                  </div>
-                </div>
-
-                {/* Enrollment Application Form (Right) */}
-                <div className="bg-[#080709] border border-white/5 p-6 sm:p-8 rounded-sm">
-                  <div className="mb-6 text-center">
-                    <span className="label-gold text-[9px] mb-1 block">Course Application</span>
-                    <h4 className="text-sm font-mono tracking-widest uppercase text-[#F0EBE3]">Join Waitlist</h4>
-                  </div>
-
-                  {enrollFormStatus ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-center p-6 border border-emerald-500/20 bg-emerald-500/[0.02] rounded-sm"
-                    >
-                      <span className="text-emerald-400 font-sans text-xs font-medium leading-relaxed block">
-                        {enrollFormStatus}
-                      </span>
-                    </motion.div>
-                  ) : (
-                    <form onSubmit={handleEnrollSubmit} className="flex flex-col gap-4 font-sans text-left">
-                      <div className="flex flex-col gap-1.5">
-                        <label className="text-[9px] font-mono tracking-wider text-gray-500 uppercase">Full Name</label>
-                        <input
-                          type="text"
-                          required
-                          className="w-full bg-[#0D0C0F] border border-gray-800 focus:border-[var(--gold)] text-white px-3 py-2 rounded-sm outline-none text-xs transition-colors placeholder-gray-600 focus:ring-1 focus:ring-[var(--gold-bright)]/10"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label className="text-[9px] font-mono tracking-wider text-gray-500 uppercase">Email Address</label>
-                        <input
-                          type="email"
-                          required
-                          className="w-full bg-[#0D0C0F] border border-gray-800 focus:border-[var(--gold)] text-white px-3 py-2 rounded-sm outline-none text-xs transition-colors placeholder-gray-600 focus:ring-1 focus:ring-[var(--gold-bright)]/10"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label className="text-[9px] font-mono tracking-wider text-gray-500 uppercase">Filmmaking Experience</label>
-                        <select className="w-full bg-[#0D0C0F] border border-gray-800 focus:border-[var(--gold)] text-white px-3 py-2 rounded-sm outline-none text-xs transition-colors appearance-none cursor-pointer">
-                          <option value="beginner">Beginner (No experience)</option>
-                          <option value="intermediate">Intermediate (Active shooter/hobbyist)</option>
-                          <option value="advanced">Advanced (Working professional)</option>
-                        </select>
-                      </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label className="text-[9px] font-mono tracking-wider text-gray-500 uppercase">Why do you want to join?</label>
-                        <textarea
-                          rows={3}
-                          required
-                          placeholder="Tell us about your learning objectives..."
-                          className="w-full bg-[#0D0C0F] border border-gray-800 focus:border-[var(--gold)] text-white px-3 py-2 rounded-sm outline-none text-xs transition-colors placeholder-gray-600 resize-none focus:ring-1 focus:ring-[var(--gold-bright)]/10"
-                        />
-                      </div>
-                      
-                      <button
-                        type="submit"
-                        disabled={isEnrolling}
-                        className="btn-gold w-full justify-center py-2.5 text-xs mt-2"
-                      >
-                        {isEnrolling ? 'Submitting...' : 'Submit Application'}
-                      </button>
-                    </form>
-                  )}
-                </div>
-
-              </div>
-
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <section className="mx-5 bg-[var(--ink)] px-7 py-14 text-white sm:mx-8 md:px-14 md:py-20 lg:mx-14">
+        <div className="mx-auto flex max-w-[1300px] flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div className="max-w-2xl"><span className="eyebrow mb-4 text-[#D98A6C]">Get involved</span><h2 className="text-4xl font-medium leading-[.98] tracking-[-.06em] md:text-6xl">Curious about learning with us?</h2><p className="mt-5 max-w-xl text-sm leading-7 text-white/65">Parents, guardians, young creatives and community partners can contact us to learn about current activities and opportunities.</p></div>
+          <Link href="/#contact" className="btn-outline w-fit border-white/30 text-white hover:border-white hover:bg-white hover:text-[var(--ink)]">Contact the studio</Link>
+        </div>
+      </section>
     </main>
   );
 }

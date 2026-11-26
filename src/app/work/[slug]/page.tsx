@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: PageProps) {
     <main className="min-h-screen bg-[var(--paper)] pb-20 pt-24 text-[var(--ink)]">
       <section className="px-5 pt-10 sm:px-8 lg:px-14">
         <div className="mx-auto max-w-[1500px]">
-          <Link href="/work" className="eyebrow inline-flex items-center gap-2 hover:text-[var(--ink)]">← Back to film & video</Link>
+          <Link href="/work" className="eyebrow inline-flex items-center hover:text-[var(--ink)]">All film & video work</Link>
           <div className="mt-8 grid items-end gap-8 md:grid-cols-[1fr_.65fr]">
             <div><span className="eyebrow mb-4">{project.categoryLabel}</span><h1 className="display-xl">{project.title}</h1></div>
             <p className="max-w-xl pb-2 text-sm leading-8 text-[var(--muted)] md:text-base">{project.description}</p>
@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: PageProps) {
       </section>
 
       <section className="mx-auto mt-20 max-w-[1500px] border-t border-[var(--line)] px-5 pt-10 sm:px-8 lg:px-14">
-        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center"><p className="text-xl font-semibold tracking-[-.04em]">Have a project in mind?</p><Link href="/#contact" className="btn-primary w-fit">Talk to the studio ↗</Link></div>
+        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center"><p className="text-xl font-semibold tracking-[-.04em]">Have a project in mind?</p><Link href="/#contact" className="btn-primary w-fit">Talk to the studio</Link></div>
       </section>
     </main>
   );

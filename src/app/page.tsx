@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <main className="scroll-smooth bg-[var(--paper)]">
       <Hero />
-      <Work limit={4} />
-      <PhotographyFeature limit={6} />
       <Statement />
+      <Work limit={4} />
       <StudioApproach />
+      <PhotographyFeature limit={6} />
       <AcademyTeaser />
       <Contact />
     </main>

@@ -12,8 +12,18 @@ const serviceLabels: Record<string, string> = {
   general: "Something else",
 };
 
+const MAX_REQUEST_BYTES = 16 * 1024;
+
 export async function POST(req: Request) {
   try {
+    const contentLength = Number(req.headers.get("content-length") || 0);
+    if (contentLength > MAX_REQUEST_BYTES) {
+      return NextResponse.json(
+        { success: false, message: "Your enquiry is too large. Please shorten your message and try again." },
+        { status: 413 }
+      );
+    }
+
     const contentType = req.headers.get("content-type") || "";
     let name = "";
     let email = "";
@@ -23,14 +33,36 @@ export async function POST(req: Request) {
     let website = "";
 
     if (contentType.includes("application/json")) {
-      const body = await req.json();
-      name = String(body.name || "");
-      email = String(body.email || "");
-      message = String(body.message || "");
-      service = String(body.service || "");
-      timeline = String(body.timeline || "");
-      website = String(body.website || "");
-    } else {
+      const rawBody = await req.text();
+      if (new TextEncoder().encode(rawBody).byteLength > MAX_REQUEST_BYTES) {
+        return NextResponse.json(
+          { success: false, message: "Your enquiry is too large. Please shorten your message and try again." },
+          { status: 413 }
+        );
+      }
+      let body: unknown;
+      try {
+        body = JSON.parse(rawBody);
+      } catch {
+        return NextResponse.json(
+          { success: false, message: "The enquiry could not be read. Please check the form and try again." },
+          { status: 400 }
+        );
+      }
+      if (!body || typeof body !== "object" || Array.isArray(body)) {
+        return NextResponse.json(
+          { success: false, message: "Please submit a valid enquiry." },
+          { status: 400 }
+        );
+      }
+      const data = body as Record<string, unknown>;
+      name = typeof data.name === "string" ? data.name : "";
+      email = typeof data.email === "string" ? data.email : "";
+      message = typeof data.message === "string" ? data.message : "";
+      service = typeof data.service === "string" ? data.service : "";
+      timeline = typeof data.timeline === "string" ? data.timeline : "";
+      website = typeof data.website === "string" ? data.website : "";
+    } else if (contentType.includes("multipart/form-data") || contentType.includes("application/x-www-form-urlencoded")) {
       const formData = await req.formData();
       name = formData.get("name")?.toString() || "";
       email = formData.get("email")?.toString() || "";
@@ -38,6 +70,11 @@ export async function POST(req: Request) {
       service = formData.get("service")?.toString() || "";
       timeline = formData.get("timeline")?.toString() || "";
       website = formData.get("website")?.toString() || "";
+    } else {
+      return NextResponse.json(
+        { success: false, message: "Unsupported enquiry format." },
+        { status: 415 }
+      );
     }
 
     if (website.trim()) {
@@ -47,10 +84,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const cleanName = name.trim().replace(/[\r\n\t]+/g, " ");
+    const cleanName = name.trim().replace(/[\\r\\n\\t]+/g, " ");
     const cleanEmail = email.trim();
     const cleanMessage = message.trim();
-    const cleanService = serviceLabels[service.trim()] || service.trim().slice(0, 80);
+    const serviceKey = service.trim();
+    const cleanService = serviceKey ? serviceLabels[serviceKey] : "";
     const cleanTimeline = timeline.trim().slice(0, 80);
 
     if (!cleanName || !cleanEmail || !cleanMessage) {
@@ -60,14 +98,21 @@ export async function POST(req: Request) {
       );
     }
 
-    if (cleanName.length > 100 || cleanEmail.length > 254 || cleanMessage.length < 10 || cleanMessage.length > 5000) {
+    if (cleanName.length > 100 || cleanEmail.length > 254 || cleanMessage.length < 10 || cleanMessage.length > 5000 || timeline.length > 80) {
       return NextResponse.json(
         { success: false, message: "Please check your details. The name, email or project message is outside the accepted length." },
         { status: 400 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (serviceKey && !cleanService) {
+      return NextResponse.json(
+        { success: false, message: "Please select one of the listed services." },
+        { status: 400 }
+      );
+    }
+
+    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
     if (!emailRegex.test(cleanEmail)) {
       return NextResponse.json(
         { success: false, message: "Please enter a valid email address." },

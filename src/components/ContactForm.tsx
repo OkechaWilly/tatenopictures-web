@@ -79,7 +79,7 @@ export default function ContactForm() {
         <label>Leave this field empty<input type="text" name="website" tabIndex={-1} autoComplete="off"/></label>
       </div>
       <p className="text-xs leading-6 text-[var(--muted)]">Your details are used only to respond to this project enquiry. Sharing a full brief is not necessary at this stage.</p>
-      <button type="submit" disabled={isLoading} className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60">{isLoading ? "Sending…" : "Send project enquiry"} <span aria-hidden="true">↗</span></button>
+      <button type="submit" disabled={isLoading} className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60">{isLoading ? "Sending…" : "Send project enquiry"}</button>
       {status && <p role="status" aria-live="polite" className={`text-sm ${isError ? "text-red-700" : "text-green-800"}`}>{status}</p>}
     </form>
   );

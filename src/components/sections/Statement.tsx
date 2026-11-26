@@ -15,9 +15,8 @@ export default function Statement() {
       <div className="mx-auto max-w-[1500px]">
         <div className="grid gap-12 border-b border-white/15 pb-12 lg:grid-cols-[1.2fr_.8fr] lg:gap-24 lg:pb-16">
           <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <span className="eyebrow mb-6 text-[#D98A6C]">03 / The studio point of view</span>
-            <h2 className="max-w-4xl text-[clamp(2.8rem,6.4vw,6.2rem)] font-medium leading-[.98] tracking-[-.07em]">
-              The way a story is seen changes <span className="font-serif font-normal italic text-[#D98A6C]">the way it is felt.</span>
+            <h2 className="max-w-4xl text-[clamp(2.8rem,6.4vw,6.2rem)] font-semibold leading-[.98] tracking-[-.07em]">
+              The way a story is seen changes <span className="font-semibold text-[#D98A6C]">the way it is felt.</span>
             </h2>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: .1 }} className="flex flex-col justify-end">

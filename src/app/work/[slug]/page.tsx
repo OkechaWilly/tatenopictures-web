@@ -46,13 +46,13 @@ export default async function ProjectPage({ params }: PageProps) {
   const project = projectsData.find((item) => item.slug === slug);
   if (!project) notFound();
   const gallery = galleries[slug] || [project.image];
+  const hasProjectDetails = Boolean(project.role || project.client || project.year);
 
   return (
     <main className="min-h-screen bg-[var(--paper)] pb-20 pt-24 text-[var(--ink)]">
       <section className="px-5 pt-10 sm:px-8 lg:px-14">
         <div className="mx-auto max-w-[1500px]">
-          <Link href="/work" className="eyebrow inline-flex items-center hover:text-[var(--ink)]">All film & video work</Link>
-          <div className="mt-8 grid items-end gap-8 md:grid-cols-[1fr_.65fr]">
+          <div className="grid items-end gap-8 md:grid-cols-[1fr_.65fr]">
             <div><span className="eyebrow mb-4">{project.categoryLabel}</span><h1 className="display-xl">{project.title}</h1></div>
             <p className="max-w-xl pb-2 text-sm leading-8 text-[var(--muted)] md:text-base">{project.description}</p>
           </div>
@@ -65,19 +65,19 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1500px] gap-10 px-5 py-16 sm:px-8 md:grid-cols-[.65fr_1.35fr] lg:px-14">
-        <div><span className="eyebrow">Project information</span></div>
-        <div className="grid grid-cols-1 gap-6 border-t border-[var(--line)] pt-5 sm:grid-cols-2">
-          <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Category</span><p className="mt-2 text-sm font-medium">{project.categoryLabel}</p></div>
-          {project.role && <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Studio involvement</span><p className="mt-2 text-sm font-medium">{project.role}</p></div>}
-          {project.client && <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Collaborator / client</span><p className="mt-2 text-sm font-medium">{project.client}</p></div>}
-          {project.year && <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Year</span><p className="mt-2 text-sm font-medium">{project.year}</p></div>}
-        </div>
-      </section>
+      {hasProjectDetails && (
+        <section className="mx-auto max-w-[1500px] px-5 pt-14 sm:px-8 lg:px-14">
+          <div className="grid grid-cols-1 gap-6 border-t border-[var(--line)] pt-5 sm:grid-cols-2 md:grid-cols-3">
+            {project.role && <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Tateno's contribution</span><p className="mt-2 text-sm font-medium">{project.role}</p></div>}
+            {project.client && <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Collaborator / client</span><p className="mt-2 text-sm font-medium">{project.client}</p></div>}
+            {project.year && <div><span className="text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Year</span><p className="mt-2 text-sm font-medium">{project.year}</p></div>}
+          </div>
+        </section>
+      )}
 
-      <section className="px-5 sm:px-8 lg:px-14">
+      <section className="px-5 pt-16 sm:px-8 lg:px-14">
         <div className="mx-auto max-w-[1500px] border-t border-[var(--line)] pt-10">
-          <div className="mb-8 flex items-end justify-between gap-5"><div><span className="eyebrow mb-3">Selected frames</span><h2 className="display-md">From the production.</h2></div><span className="text-xs text-[var(--muted)]">{gallery.length} images</span></div>
+          <div className="mb-8"><h2 className="display-md">Selected frames</h2></div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {gallery.map((src,index) => <div key={src} className={`relative overflow-hidden bg-[#E4E1D8] ${index === 0 ? 'aspect-[1.15] sm:col-span-2' : 'aspect-[1.15]'}`}><Image src={src} alt={`${project.title} — production frame ${index+1}`} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-[1.025]"/></div>)}
           </div>

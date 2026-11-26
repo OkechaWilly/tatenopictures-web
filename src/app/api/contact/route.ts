@@ -122,9 +122,10 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.RESEND_API_KEY;
     const fromEmail = process.env.RESEND_FROM_EMAIL;
-    const contactEmail = process.env.CONTACT_TO_EMAIL;
+    const contactEmails = [...new Set((process.env.CONTACT_TO_EMAIL || "").split(",").map((address) => address.trim()).filter(Boolean))];
+    const recipientEmailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
 
-    if (!apiKey || !fromEmail || !contactEmail) {
+    if (!apiKey || !fromEmail || contactEmails.length === 0 || contactEmails.some((address) => !recipientEmailRegex.test(address))) {
       console.error("Contact submission blocked: email service configuration is incomplete.", {
         hasApiKey: Boolean(apiKey),
         hasFromEmail: Boolean(fromEmail),
@@ -145,7 +146,7 @@ export async function POST(req: Request) {
 
     const { error: inquiryError } = await resend.emails.send({
       from: `Tateno Pictures <${fromEmail}>`,
-      to: contactEmail,
+      to: contactEmails,
       replyTo: cleanEmail,
       subject: `New Project Inquiry from ${cleanName}${cleanService ? ` - ${cleanService}` : ""}`,
       html: `

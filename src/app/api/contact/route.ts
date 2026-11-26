@@ -123,13 +123,13 @@ export async function POST(req: Request) {
     const apiKey = process.env.RESEND_API_KEY;
     const fromEmail = process.env.RESEND_FROM_EMAIL;
     const contactEmails = [...new Set((process.env.CONTACT_TO_EMAIL || "").split(",").map((address) => address.trim()).filter(Boolean))];
-    const recipientEmailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    const recipientEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!apiKey || !fromEmail || contactEmails.length === 0 || contactEmails.some((address) => !recipientEmailRegex.test(address))) {
+    if (!apiKey || !fromEmail || !emailRegex.test(fromEmail) || contactEmails.length === 0 || contactEmails.some((address) => !recipientEmailRegex.test(address))) {
       console.error("Contact submission blocked: email service configuration is incomplete.", {
         hasApiKey: Boolean(apiKey),
         hasFromEmail: Boolean(fromEmail),
-        hasContactEmail: Boolean(contactEmail),
+        hasContactEmail: Boolean(contactEmails.length),
       });
       return NextResponse.json(
         { success: false, message: "Our contact service is temporarily unavailable. Please try again later." },

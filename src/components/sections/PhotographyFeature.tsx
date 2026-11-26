@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -20,6 +20,9 @@ const categories = ['All', 'Weddings', 'People', 'Places', 'Visual stories'];
 export default function PhotographyFeature({ limit }: { limit?: number }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [category, setCategory] = useState('All');
+  const viewerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const activeTriggerRef = useRef<HTMLButtonElement | null>(null);
   const visible = (typeof limit === 'number' ? photos.slice(0, limit) : photos)
     .filter((photo) => category === 'All' || photo.label === category);
 
@@ -33,16 +36,40 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
 
   useEffect(() => {
     if (selected === null) return;
+    const previousOverflow = document.body.style.overflow;
+    const focusable = () => Array.from(viewerRef.current?.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+    ) ?? []).filter((item) => item.offsetParent !== null);
+
+    closeButtonRef.current?.focus();
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeViewer();
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeViewer();
+      }
       if (event.key === 'ArrowLeft') showPrevious();
       if (event.key === 'ArrowRight') showNext();
+      if (event.key === 'Tab') {
+        const items = focusable();
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
+      activeTriggerRef.current?.focus();
     };
   }, [selected, closeViewer, showPrevious, showNext]);
 
@@ -86,7 +113,7 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: .1 }}
               transition={{ duration: .5, delay: (index % 4) * .04 }}
-              onClick={() => setSelected(index)}
+              onClick={(event) => { activeTriggerRef.current = event.currentTarget; setSelected(index); }}
               aria-label={`Open photograph: ${photo.alt}`}
               className="masonry-item group block w-full cursor-zoom-in text-left"
             >
@@ -116,11 +143,12 @@ export default function PhotographyFeature({ limit }: { limit?: number }) {
             exit={{ opacity: 0 }}
             onClick={(event) => { if (event.target === event.currentTarget) closeViewer(); }}
             className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(16,17,15,.97)] p-4 sm:p-8"
+            ref={viewerRef}
             role="dialog"
             aria-modal="true"
             aria-label="Photograph viewer"
           >
-            <button type="button" onClick={closeViewer} className="absolute right-5 top-5 z-10 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black">Close</button>
+            <button ref={closeButtonRef} type="button" onClick={closeViewer} className="absolute right-5 top-5 z-10 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black">Close</button>
             <button type="button" onClick={showPrevious} aria-label="Previous photograph" className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/30 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-black sm:left-7">Previous</button>
             <div className="flex max-h-[88vh] max-w-6xl flex-col items-center">
               <img src={visible[selected].src} alt={visible[selected].alt} className="max-h-[78vh] max-w-full object-contain" />

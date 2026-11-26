@@ -2,10 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const learningAreas = [
-  ['01', 'Graphic design', 'Visual communication, creative tools and turning ideas into clear designs.'],
-  ['02', 'Camera work', 'Camera operation, framing, composition and visual storytelling.'],
-  ['03', 'Photography', 'Observing light, capturing moments and making thoughtful images.'],
-  ['04', 'Video editing', 'Organising footage, shaping a story and preparing work for delivery.'],
+  ['Graphic design', 'Visual communication, creative tools and turning ideas into clear designs.'],
+  ['Camera work', 'Camera operation, framing, composition and visual storytelling.'],
+  ['Photography', 'Observing light, capturing moments and making thoughtful images.'],
+  ['Video editing', 'Organising footage, shaping a story and preparing work for delivery.'],
 ];
 
 export default function AcademyPage() {
@@ -46,8 +46,8 @@ export default function AcademyPage() {
 
           <h2 className="display-lg mb-12">A foundation in creative practice.</h2>
           <div className="grid border-l border-t border-[var(--line)] sm:grid-cols-2">
-            {learningAreas.map(([number,title,description]) => (
-              <article key={number} className="border-b border-r border-[var(--line)] p-7 md:p-10">
+            {learningAreas.map(([title,description]) => (
+              <article key={title} className="border-b border-r border-[var(--line)] p-7 md:p-10">
                 <h3 className="mt-8 text-2xl font-semibold tracking-[-.05em]">{title}</h3>
                 <p className="mt-3 max-w-md text-sm leading-7 text-[var(--muted)]">{description}</p>
               </article>

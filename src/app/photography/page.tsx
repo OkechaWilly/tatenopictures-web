@@ -10,8 +10,7 @@ export default function PhotographyPage() {
     <main className="min-h-screen bg-[var(--paper)] pt-20">
       <section className="px-5 pb-10 pt-16 sm:px-8 md:pt-24 lg:px-14">
         <div className="mx-auto max-w-[1500px]">
-          <span className="eyebrow mb-5">Tateno Pictures / Portfolio 02</span>
-          <h1 className="display-xl">The still <span className="font-serif font-normal italic text-[var(--accent)]">image.</span></h1>
+          <h1 className="display-xl">The still <span className="font-semibold text-[var(--accent)]">image.</span></h1>
           <p className="mt-7 max-w-xl text-base leading-8 text-[var(--muted)]">People, places, celebrations and details, seen through our lens.</p>
         </div>
       </section>

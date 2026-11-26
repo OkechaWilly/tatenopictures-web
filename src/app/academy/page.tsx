@@ -33,7 +33,7 @@ export default function AcademyPage() {
       </section>
 
       <section className="mx-auto grid max-w-[1500px] gap-10 px-5 py-20 sm:px-8 md:grid-cols-[.7fr_1.3fr] md:py-28 lg:px-14">
-        <div><span className="eyebrow mb-4">01 / Why we do it</span><h2 className="display-md max-w-md">Creative skills should be within reach.</h2></div>
+        <div><h2 className="display-md max-w-md">Creative skills should be within reach.</h2></div>
         <div className="max-w-3xl space-y-5 text-sm leading-8 text-[var(--muted)] md:text-base">
           <p>Since 2023, Tateno Pictures has worked with young people in the surrounding community, introducing them to practical skills in graphic design, camera work, photography and video editing.</p>
           <p>Learning goes beyond demonstrations. We encourage hands-on practice and, when opportunities arise, take learners into real production environments — including wedding assignments, music videos for local artists and other creative jobs.</p>
@@ -48,7 +48,7 @@ export default function AcademyPage() {
           <div className="grid border-l border-t border-[var(--line)] sm:grid-cols-2">
             {learningAreas.map(([title,description]) => (
               <article key={title} className="border-b border-r border-[var(--line)] p-7 md:p-10">
-                <h3 className="mt-8 text-2xl font-semibold tracking-[-.05em]">{title}</h3>
+                <h3 className="text-2xl font-semibold tracking-[-.05em]">{title}</h3>
                 <p className="mt-3 max-w-md text-sm leading-7 text-[var(--muted)]">{description}</p>
               </article>
             ))}
@@ -57,13 +57,13 @@ export default function AcademyPage() {
       </section>
 
       <section className="mx-auto grid max-w-[1500px] gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 md:py-28 lg:px-14">
-        <div><span className="eyebrow mb-4">03 / Beyond the classroom</span><h2 className="display-md">Experience is part of the learning.</h2></div>
+        <div><h2 className="display-md">Experience is part of the learning.</h2></div>
         <div className="space-y-7">
           {[
             ['Learn the foundations','Build an understanding of tools, techniques and creative thinking.'],
             ['Practise by doing','Develop confidence through exercises, guided tasks and practical projects.'],
             ['Step into real productions','Where appropriate, observe and assist on live assignments with the studio.'],
-          ].map(([title,description],index) => <article key={title} className="border-t border-[var(--line)] pt-5"><h3 className="mt-3 text-xl font-semibold tracking-[-.04em]">{title}</h3><p className="mt-2 text-sm leading-7 text-[var(--muted)]">{description}</p></article>)}
+          ].map(([title,description],index) => <article key={title} className="border-t border-[var(--line)] pt-5"><h3 className="text-xl font-semibold tracking-[-.04em]">{title}</h3><p className="mt-2 text-sm leading-7 text-[var(--muted)]">{description}</p></article>)}
         </div>
       </section>
 

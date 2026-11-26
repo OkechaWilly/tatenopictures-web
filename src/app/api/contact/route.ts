@@ -84,7 +84,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const cleanName = name.trim().replace(/[\\r\\n\\t]+/g, " ");
+    const cleanName = name.trim().replace(/[\r\n\t]+/g, " ");
     const cleanEmail = email.trim();
     const cleanMessage = message.trim();
     const serviceKey = service.trim();
@@ -112,7 +112,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(cleanEmail)) {
       return NextResponse.json(
         { success: false, message: "Please enter a valid email address." },

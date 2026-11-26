@@ -37,7 +37,7 @@ export default function ContactForm() {
     }
   };
 
-  const field = "w-full border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--ink)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[rgba(184,91,61,.12)] placeholder:text-[#9B9B93]";
+  const field = "w-full rounded-xl border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--ink)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[rgba(184,91,61,.12)] placeholder:text-[#9B9B93]";
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-5">

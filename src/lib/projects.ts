@@ -21,7 +21,7 @@ export const projectsData: Project[] = [
     subtitle: 'Documentary · Film',
     image: '/images/docs/ctt-doc-11.png',
     role: 'Art director & producer',
-    description: 'A documentary project in Tateno Pictures’ body of work. The project page brings together selected production frames and an overview of the studio’s involvement.',
+    description: 'A documentary production with Tateno Pictures contributing art direction and production. The selected frames offer a look into the visual world and work behind the film.',
   },
   {
     slug: 'music-video-work',

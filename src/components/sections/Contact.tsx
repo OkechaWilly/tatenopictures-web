@@ -13,6 +13,7 @@ export default function Contact() {
     if (!open) return;
 
     const previousFocus = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
     const dialog = dialogRef.current;
     const focusable = () => dialog?.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
@@ -48,7 +49,7 @@ export default function Contact() {
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
       (previousFocus ?? triggerRef.current)?.focus();
     };
   }, [open]);
